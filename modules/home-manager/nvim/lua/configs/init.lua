@@ -1,0 +1,8 @@
+require "configs.conform"
+require "configs.fugitive"
+require "configs.harpoon"
+require "configs.mini"
+require "configs.nvim-tree"
+require "configs.telescope"
+require "configs.treesitter"
+require "configs.undotree"

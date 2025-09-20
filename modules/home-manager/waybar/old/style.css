@@ -1,0 +1,92 @@
+/*
+	Inspired by Caleb Bassi's waybar config [0].
+	This is a vendored Aura Theme port [1].
+
+	version: 1.0.0
+
+	[0]: https://github.com/cjbassi/config/tree/master/.config/waybar
+	[1]: https://github.com/daltonmenezes/aura-theme/blob/main/packages/waybar
+*/
+@import "mocha.css";
+
+* {
+  font-family: JetBrains Mono;
+  font-size: 13px;
+  min-height: 0;
+}
+
+#waybar {
+  background: @crust;
+  color: @text;
+  margin: 4px 5px;
+}
+
+#workspaces {
+  border-radius: 1rem;
+  margin: 5px;
+  background-color: @surface0;
+  margin-left: 1rem;
+}
+
+#workspaces button {
+  color: @lavender;
+  border-radius: 1rem;
+  padding: 0.4rem;
+}
+
+#workspaces button.active {
+  color: @sky;
+  border-radius: 1rem;
+}
+
+#workspaces button:hover {
+  color: @sapphire;
+  border-radius: 1rem;
+}
+
+#custom-music,
+#tray,
+#memory,
+#clock,
+#cpu,
+#pulseaudio,
+#custom-lock,
+#custom-power {
+  background-color: @surface0;
+  padding: 0.3rem 1rem;
+  margin: 5px 0;
+}
+
+#clock {
+  color: @blue;
+  border-radius: 0px 1rem 1rem 0px;
+  margin-right: 1rem;
+}
+
+#pulseaudio {
+  color: @maroon;
+  border-radius: 1rem 0px 0px 1rem;
+  margin-left: 1rem;
+}
+
+#custom-music {
+  color: @mauve;
+  border-radius: 1rem;
+}
+
+#custom-lock {
+    border-radius: 1rem 0px 0px 1rem;
+    color: @lavender;
+}
+
+#custom-power {
+    margin-right: 1rem;
+    border-radius: 1rem;    
+    color: @red;
+    font-size: 15px;
+}
+
+#tray {
+  margin-right: 1rem;
+  border-radius: 1rem;
+}
