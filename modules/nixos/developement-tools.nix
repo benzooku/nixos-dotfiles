@@ -18,6 +18,11 @@
             
     ];
 
+    # VirtualBox
+    virtualisation.virtualbox.host.enable = true;
+    virtualisation.virtualbox.host.enableExtensionPack = true;
+    users.extraGroups.vboxusers.members = [ "ben" ];
+
     # Docker
     virtualisation.docker.enable = true;
     virtualisation.docker.rootless = {
