@@ -18,11 +18,18 @@
             
     ];
 
-    # VirtualBox
-    virtualisation.virtualbox.host.enable = true;
-    virtualisation.virtualbox.host.enableExtensionPack = true;
-    users.extraGroups.vboxusers.members = [ "ben" ];
+    # KVM
+    programs.virt-manager.enable = true;
+    users.groups.libvirtd.members = ["ben"];
+    virtualisation.libvirtd.enable = true;
+    virtualisation.spiceUSBRedirection.enable = true;
+    # virsh net-start default
+    # to start virt network
 
+    # waydroid
+    virtualisation.waydroid.enable = true;
+
+    
     # Docker
     virtualisation.docker.enable = true;
     virtualisation.docker.rootless = {

@@ -448,7 +448,7 @@ label {
     services.hyprpaper = {
         enable = true;
         settings = {
-            preload = "~/nixos/modules/home-manager/nixos.png";
+            preload = ["~/Pictures/wallpapers/temple.png" "~/nixos/modules/home-manager/nixos.png"];
             wallpaper = [
                 "HDMI-A-1,~/nixos/modules/home-manager/nixos.png"
                 "HDMI-A-2,~/nixos/modules/home-manager/nixos.png"

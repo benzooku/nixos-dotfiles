@@ -56,10 +56,28 @@
         # Extra Software
         pkgs.jellyflix
         pkgs.jellyfin-tui
+        pkgs.gimp3-with-plugins
+
+        #extra for games
+        pkgs.mangohud
     ];
 
+    # steam
+    programs = {
+        gamescope = {
+            enable = true;
+            capSysNice = true;
+        };
+        steam = {
+            enable = true;
+            gamescopeSession.enable = true;
+            remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+            dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+            localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+        };
+    };
+    hardware.xone.enable = true; # support for the xbox controller USB dongle
 
-    
 
     fonts.packages = with pkgs; [
         nerd-fonts.jetbrains-mono
@@ -81,4 +99,7 @@
         pulse.enable = true;
         jack.enable = true;
     };
+
+    documentation.man.generateCaches = true;
+
 }
