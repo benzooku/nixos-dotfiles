@@ -17,9 +17,6 @@
         nvidia.modesetting.enable = true;
     };
 
-    nixpkgs.config.permittedInsecurePackages = [
-        "qtwebengine-5.15.19"
-    ];
 
     environment.systemPackages = [
         # Default Software
@@ -54,9 +51,8 @@
         pkgs.sddm-astronaut
 
         # Extra Software
-        pkgs.jellyflix
-        pkgs.jellyfin-tui
         pkgs.gimp3-with-plugins
+        pkgs.element-desktop
 
         #extra for games
         pkgs.mangohud

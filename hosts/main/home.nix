@@ -8,6 +8,7 @@
             ./../../modules/home-manager/btop.nix
             ./../../modules/home-manager/zsh.nix
             ./../../modules/home-manager/kitty.nix
+            ./../../modules/home-manager/lazygit.nix
         ];
     # Home Manager needs a bit of information about you and the paths it should
     # manage.

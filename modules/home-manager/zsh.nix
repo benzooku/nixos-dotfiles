@@ -29,6 +29,7 @@
             zsh-users/zsh-autosuggestions \
             light-mode \
             zdharma-continuum/fast-syntax-highlighting \
+            light-mode \
             zdharma-continuum/history-search-multi-word \
             '';
 

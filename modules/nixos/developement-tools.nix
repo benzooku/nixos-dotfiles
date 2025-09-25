@@ -14,7 +14,13 @@
         pkgs.unzip
         pkgs.nodejs_24
         pkgs.watchman
+        pkgs.k6
 
+        # TUIs and shell tools
+        pkgs.lazygit
+        pkgs.fzf
+        pkgs.ripgrep
+        pkgs.fd
             
     ];
 
