@@ -8,6 +8,10 @@
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        stylix = {
+          url = "github:nix-community/stylix";
+          inputs.nixpkgs.follows = "nixpkgs";
+        };
         grub2-themes = {
             url = "github:vinceliuice/grub2-themes";
         };
@@ -18,6 +22,7 @@
             nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
                 specialArgs = {inherit inputs;};
                 modules = [
+                    inputs.stylix.nixosModules.stylix
                     ./hosts/main/configuration.nix
                     inputs.home-manager.nixosModules.default
                     ./modules/nixos/desktop-environment.nix

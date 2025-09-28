@@ -20,8 +20,6 @@
             canTouchEfiVariables = true;
             efiSysMountPoint = "/boot";
         };
-
-        
     };
     boot.loader.grub2-theme = {
         enable = true;
@@ -33,7 +31,7 @@
     services.xserver.enable = true;
     services.displayManager.sddm = {
         enable = true;
-        theme = "astronaut";
+        theme = "catppuccin-macchiato-mauve";
     };
 
     

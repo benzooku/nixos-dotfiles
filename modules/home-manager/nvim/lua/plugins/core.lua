@@ -27,6 +27,7 @@ return {
         "elixir",
         "css",
         "heex",
+        "hyprlang",
       },
 
       highlight = {
@@ -86,6 +87,7 @@ return {
           },
         },
         nixd = {},
+        hyprls = {},
       },
     },
   },

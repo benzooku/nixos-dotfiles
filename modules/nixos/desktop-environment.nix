@@ -1,4 +1,4 @@
-{ config, pkgs, ...}:
+{ pkgs, ...}:
 {
     programs.hyprland = {
         enable = true;
@@ -18,44 +18,53 @@
     };
 
 
-    environment.systemPackages = [
+    environment.systemPackages = with pkgs;  [
         # Default Software
-        pkgs.firefox
-        pkgs.vesktop  
-        pkgs.btop
-        pkgs.kdePackages.ark
-        pkgs.kdePackages.kcalc
-        pkgs.neofetch
-        pkgs.obsidian
+        firefox
+        vesktop
+        btop
+        kdePackages.ark
+        kdePackages.kcalc
+        neofetch
+        obsidian
 
         # DE
-        pkgs.waybar
-        pkgs.kitty
-        pkgs.networkmanagerapplet
-        pkgs.cliphist
-        pkgs.rofi
-        pkgs.uwsm
-        pkgs.swaynotificationcenter
-        pkgs.wlogout
-        pkgs.wl-clipboard
-        pkgs.pavucontrol
-        pkgs.playerctl
-        pkgs.hyprpolkitagent
-        pkgs.hyprshot
+        hyprpanel
+        waybar
+        kitty
+        networkmanagerapplet
+        cliphist
+        rofi
+        uwsm
+        swaynotificationcenter
+        wlogout
+        wl-clipboard
+        pavucontrol
+        playerctl
+        hyprpolkitagent
+        hyprshot
 
-        pkgs.hyprpaper
-        pkgs.hyprlock
-        pkgs.hypridle
+        hyprpaper
+        hyprlock
+        hypridle
+
 
         # Themes
-        pkgs.sddm-astronaut
+        (catppuccin-sddm.override {
+          flavor = "macchiato";
+          accent = "mauve";
+          font  = "JetBrains Mono";
+          fontSize = "9";
+          #background = "${./../home-manager/hyprlock.png}";
+          loginBackground = true;
+        })
 
         # Extra Software
-        pkgs.gimp3-with-plugins
-        pkgs.element-desktop
+        gimp3-with-plugins
+        element-desktop
 
         #extra for games
-        pkgs.mangohud
+        mangohud
     ];
 
     # steam
@@ -86,6 +95,8 @@
 
     xdg.portal.enable = true;
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+
+    services.gnome.gnome-keyring.enable = true;
 
     security.rtkit.enable = true;
     services.pipewire = {

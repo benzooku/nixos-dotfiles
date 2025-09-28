@@ -1,27 +1,27 @@
-{ config, pkgs, ...}:
+{ pkgs, ...}:
 {
-  environment.systemPackages = [
+  environment.systemPackages = with pkgs; [
 # C
-    pkgs.gcc
+    gcc
 
 # Nix
-      pkgs.nixd
+      nixd
 
 # General
-      pkgs.inotify-tools
-      pkgs.staruml
-      pkgs.figma-linux
-      pkgs.unzip
-      pkgs.nodejs_24
-      pkgs.watchman
-      pkgs.k6
+      inotify-tools
+      staruml
+      figma-linux
+      unzip
+      nodejs_24
+      watchman
+      k6
 
 # TUIs and shell tools
-      pkgs.lazygit
-      pkgs.fzf
-      pkgs.ripgrep
-      pkgs.fd
-      pkgs.ast-grep
+      lazygit
+      fzf
+      ripgrep
+      fd
+      ast-grep
       ];
 
 # KVM
