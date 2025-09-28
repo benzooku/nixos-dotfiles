@@ -7,6 +7,9 @@
 # Nix
       nixd
 
+# Go
+    go
+
 # General
       inotify-tools
       staruml
