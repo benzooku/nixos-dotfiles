@@ -1,4 +1,4 @@
-{config, pkgs, ...}:
+{pkgs, ...}:
 {
     wayland.windowManager.hyprland = {
         enable = true;
@@ -56,10 +56,9 @@
             "HYPRCURSOR_SIZE,24"
         ];
         exec-once = [ 
-            "uwsm app -- waybar"
             "uwsm app -- hyprpaper"
             "[workspace 2 silent] uwsm app -- firefox"
-            "uwsm app -- swaync"
+            "uwsm app -- hyprpanel"
             "uwsm app -- nm-applet"
             #"uwsm app -- hypridle"
             "wl-paste --watch cliphist store &"

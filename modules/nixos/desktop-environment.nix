@@ -30,14 +30,11 @@
 
         # DE
         hyprpanel
-        waybar
         kitty
         networkmanagerapplet
         cliphist
         rofi
         uwsm
-        swaynotificationcenter
-        wlogout
         wl-clipboard
         pavucontrol
         playerctl
