@@ -299,6 +299,8 @@ bindl=, XF86AudioNext, exec, playerctl next
 bindl=, XF86AudioPrev, exec, playerctl previous
 bindl=, XF86MonBrightnessUp, exec, brightnessctl set +10%
 bindl=, XF86MonBrightnessDown, exec, brightnessctl set 10%-
+bindl = , switch:on:Lid Switch, exec, hyprctl dispatch dpms off
+bindl = , switch:off:Lid Switch, exec, hyprctl dispatch dpms on
 
 # Clipboard binds
 bind = SUPER, d, exec, pkill rofi || cliphist list | rofi --no-fuzzy --dmenu | cliphist decode | wl-copy
