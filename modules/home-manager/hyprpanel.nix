@@ -93,7 +93,7 @@
       menus.clock.weather.enabled = false;
       menus.dashboard.controls.enabled = true;
       menus.dashboard.stats.enable_gpu = false;
-      menus.dashboard.shortcuts.enabled = false;
+      menus.dashboard.shortcuts.enabled = true;
       menus.dashboard.directories.enabled = false;
       bar.customModules.ram.label = true;
       bar.customModules.ram.icon = "";
