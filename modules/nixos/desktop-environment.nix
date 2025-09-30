@@ -52,6 +52,7 @@
         brightnessctl
 
         power-profiles-daemon
+        upower
 
         hyprpaper
         hyprlock

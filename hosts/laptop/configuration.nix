@@ -99,6 +99,16 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  
+  hardware.bluetooth.enable = true;
+  hardware.graphics.extraPackages = with pkgs; [ 
+  intel-media-driver
+  intel-ocl
+  intel-vaapi-driver
+  ];
+  
+  services.thermald.enable = true;
+  services.tlp.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
