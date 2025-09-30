@@ -16,27 +16,44 @@
       theme.font.size = "1rem";
       menus.transition = "crossfade";
       scalingPriority = "gdk";
-      layout = {
-        bar.layouts = {
-          "0" = {
-            left = [
-              "dashboard"
-                "workspaces"
-                "windowtitle"
-            ];
-            middle = [
-              "media"
-            ];
-            right = [
-              "systray"
-                "cpu"
-                "ram"
-                "volume"
-                "network"
-                "clock"
-                "notifications"
-            ];
-          };
+      bar.layouts = {
+        "0" = {
+          left = [
+            "dashboard"
+              "workspaces"
+              "windowtitle"
+          ];
+          middle = [
+            "media"
+          ];
+          right = [
+            "systray"
+              "cpu"
+              "ram"
+              "volume"
+              "network"
+              "clock"
+              "notifications"
+          ];
+        };
+        "1" = {
+          left = [
+            "dashboard"
+              "workspaces"
+              "windowtitle"
+          ];
+          middle = [
+            "media"
+          ];
+          right = [
+            "systray"
+              "cpu"
+              "ram"
+              "volume"
+              "network"
+              "clock"
+              "notifications"
+          ];
         };
       };
       theme.bar.location = "top";
