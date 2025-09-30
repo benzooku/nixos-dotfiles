@@ -58,7 +58,6 @@
         exec-once = [ 
             "uwsm app -- hyprpaper"
             "[workspace 2 silent] uwsm app -- firefox"
-            "uwsm app -- hyprpanel"
             "uwsm app -- nm-applet"
             #"uwsm app -- hypridle"
             "wl-paste --watch cliphist store &"

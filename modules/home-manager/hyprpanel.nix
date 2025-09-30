@@ -1,6 +1,7 @@
 { ... }:
 {
   programs.hyprpanel = {
+    enable = true;
     # Configure and theme almost all options from the GUI.
     # See 'https://hyprpanel.com/configuration/settings.html'.
     # Default: <same as gui>
@@ -15,25 +16,27 @@
       theme.font.size = "1rem";
       menus.transition = "crossfade";
       scalingPriority = "gdk";
-      bar.layouts = {
-        "0" = {
-          left = [
-            "dashboard"
-          "workspaces"
-          "windowtitle"
-          ];
-          middle = [
-            "media"
-          ];
-          right = [
-            "systray"
-          "cpu"
-          "ram"
-          "volume"
-          "network"
-          "clock"
-          "notifications"
-          ];
+      layout = {
+        bar.layouts = {
+          "0" = {
+            left = [
+              "dashboard"
+                "workspaces"
+                "windowtitle"
+            ];
+            middle = [
+              "media"
+            ];
+            right = [
+              "systray"
+                "cpu"
+                "ram"
+                "volume"
+                "network"
+                "clock"
+                "notifications"
+            ];
+          };
         };
       };
       theme.bar.location = "top";
