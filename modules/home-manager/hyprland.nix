@@ -297,6 +297,8 @@ bindl=, XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindl=, XF86AudioPlay, exec, playerctl play-pause # the stupid key is called play , but it toggles 
 bindl=, XF86AudioNext, exec, playerctl next 
 bindl=, XF86AudioPrev, exec, playerctl previous
+bindl=, XF86MonBrightnessUp, exec, brightnessctl set +10%
+bindl=, XF86MonBrightnessDown, exec, brightnessctl set 10%-
 
 # Clipboard binds
 bind = SUPER, d, exec, pkill rofi || cliphist list | rofi --no-fuzzy --dmenu | cliphist decode | wl-copy
@@ -450,6 +452,7 @@ label {
             wallpaper = [
                 "HDMI-A-1,~/nixos/modules/home-manager/nixos.png"
                 "HDMI-A-2,~/nixos/modules/home-manager/nixos.png"
+                "LVDS-1,~/nixos/modules/home-manager/nixos.png"
             ];
             splash = false;
         };
