@@ -27,7 +27,9 @@
         kdePackages.kcalc
         neofetch
         obsidian
-        floorp-bin
+        eog
+        qalculate-qt
+        haruna
 
         # DE
         hyprpanel
