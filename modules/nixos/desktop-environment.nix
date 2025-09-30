@@ -42,8 +42,6 @@
         hyprpolkitagent
         hyprshot
         hyprpicker
-        bluez
-        bluez-tools
         gtop
         upower
         gvfs

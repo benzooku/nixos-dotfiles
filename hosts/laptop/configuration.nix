@@ -101,6 +101,7 @@
   services.openssh.enable = true;
   
   hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
   hardware.graphics.extraPackages = with pkgs; [ 
   intel-media-driver
   intel-ocl
