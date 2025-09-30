@@ -41,6 +41,12 @@
                   specialArgs = {inherit inputs;};
                   modules = commonModules ++ [
                       ./hosts/laptop/configuration.nix
+                      inputs.home-manager.nixosModules.home-manager
+                      {
+                        home-manager.useGlobalPkgs = true;
+                        home-manager.useUserPackages = true;
+                        home-manager.users.ben = import ./hosts/laptop/home.nix;
+                      }
                   ];
               };
             };
