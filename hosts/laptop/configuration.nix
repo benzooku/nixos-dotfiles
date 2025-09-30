@@ -1,10 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./home.nix
+    ./hardware-configuration.nix
+      inputs.home-manager.nixosModules.default
     ];
 
   # Set your time zone.
