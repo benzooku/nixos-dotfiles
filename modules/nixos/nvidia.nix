@@ -1,9 +1,5 @@
 { config, lib, pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [
-    nvidia-settings
-    nvidia-persistenced
-  ];
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
