@@ -35,18 +35,12 @@
     };
 
     
-    nix.settings.experimental-features = ["nix-command" "flakes"];
-    nix.settings = {
-        max-jobs = "auto";
-        http-connections = 50;
-        download-attempts = 10;
-        download-buffer-size = 524288000;
-    };
+    
 
     # Use latest kernel.
     boot.kernelPackages = pkgs.linuxPackages_latest;
 
-    networking.hostName = "nixos"; # Define your hostname.
+    networking.hostName = "Ben-PC"; # Define your hostname.
     # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
     # Enable networking
@@ -108,18 +102,17 @@
 
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
-    # programs.mtr.enable = true;
-    # programs.gnupg.agent = {
-    #   enable = true;
-    #   enableSSHSupport = true;
-    # };
+    programs.mtr.enable = true;
+    programs.gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
 
     # List services that you want to enable:
 
     # Enable the OpenSSH daemon.
     services.openssh.enable = true;
 
-    services.udisks2.enable = true;
 
     # Open ports in the firewall.
     # networking.firewall.allowedTCPPorts = [ ... ];
