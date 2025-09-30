@@ -8,7 +8,7 @@
             ./../../modules/home-manager/zsh.nix
             ./../../modules/home-manager/kitty.nix
             ./../../modules/home-manager/lazygit.nix
-            ./../../modules/home-manager/hyprpanel.nix
+            ./../../modules/home-manager/hyprpanel-laptop.nix
             ./../../modules/home-manager/device.nix
         ];
 
