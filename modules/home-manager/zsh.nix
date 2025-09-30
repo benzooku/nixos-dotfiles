@@ -5,7 +5,7 @@
         enableCompletion = true;
 
         shellAliases = {
-            update-nixos = "sudo nixos-rebuild switch --flake ~/nixos#nixos";
+            update-nixos = "sudo nixos-rebuild switch --flake ~/nixos";
         };
         history.size = 1000; 
 

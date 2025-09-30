@@ -17,7 +17,6 @@
       let
         commonModules = [
           ./modules/nixos/nixbase.nix
-          inputs.home-manager.nixosModules.default
           ./modules/nixos/desktop-environment.nix
           ./modules/nixos/developement-tools.nix
           inputs.grub2-themes.nixosModules.default
@@ -30,6 +29,12 @@
                   modules = commonModules ++ [
                       ./hosts/main/configuration.nix
                       ./modules/nixos/nvidia.nix
+                      inputs.home-manager.nixosModules.home-manager
+                      {
+                        home-manager.useGlobalPkgs = true;
+                        home-manager.useUserPackages = true;
+                        home-manager.users.ben = import ./hosts/main/home.nix;
+                      }
                   ];
               };
               laptop = nixpkgs.lib.nixosSystem {

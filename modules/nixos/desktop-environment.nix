@@ -48,14 +48,16 @@
 
 
         # Themes
+        
         (catppuccin-sddm.override {
-          flavor = "macchiato";
+          flavor = "mocha";
           accent = "mauve";
           font  = "JetBrains Mono";
           fontSize = "9";
-          #background = "${./../home-manager/hyprlock.png}";
-          loginBackground = true;
+          #background = "${./../home-manager/nixos.png}";
+          loginBackground = false;
         })
+
 
         # Extra Software
         gimp3-with-plugins

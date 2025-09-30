@@ -4,9 +4,8 @@
     imports =
         [ 
             ./hardware-configuration.nix
-            inputs.home-manager.nixosModules.default
         ];
-
+    
     boot.loader.systemd-boot.enable = false;
     # Bootloader.
     boot.loader = {
@@ -23,7 +22,7 @@
     };
     boot.loader.grub2-theme = {
         enable = true;
-        theme = "vimix";
+        theme = "tela";
         footer = true;
     };
 
@@ -31,7 +30,8 @@
     services.xserver.enable = true;
     services.displayManager.sddm = {
         enable = true;
-        theme = "catppuccin-macchiato-mauve";
+        theme = "catppuccin-mocha-mauve";
+        package = pkgs.kdePackages.sddm;
     };
 
     

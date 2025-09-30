@@ -2,7 +2,7 @@
 {
 
   imports =
-    [ 
+    [
     ./../../modules/home-manager/hyprland.nix
       ./../../modules/home-manager/btop.nix
       ./../../modules/home-manager/zsh.nix
