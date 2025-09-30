@@ -25,6 +25,7 @@
       ripgrep
       fd
       ast-grep
+      nettools
       ];
 
 # KVM
