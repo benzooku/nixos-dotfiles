@@ -41,6 +41,17 @@
         playerctl
         hyprpolkitagent
         hyprshot
+        hyprpicker
+        bluez
+        bluez-tools
+        gtop
+        upower
+        gvfs
+        gtksourceview3
+        libsoup_3
+        brightnessctl
+
+        power-profiles-daemon
 
         hyprpaper
         hyprlock

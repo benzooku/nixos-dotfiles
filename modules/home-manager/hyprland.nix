@@ -465,20 +465,29 @@ label {
             };
 
             listener = [
-                {
-                    timeout = 150;                                # 2.5min.
-                    on-timeout = "brightnessctl -s set 10";         # set monitor backlight to minimum, avoid 0 on OLED monitor.
-                    on-resume = "brightnessctl -r";               # monitor backlight restore.
-                }
-                {
-                    timeout = 150;
-                    on-timeput = "brightnessctl -sd rgb:kbd_backlight set 0";
-                    on-resume = "brightnessctl -rd rgb:kbd_backlight";
-                }
-                {
-                    timeout = 300;
-                    on-timeout = "loginctl lock-session";
-                }
+            {
+              timeout = 150;                                # 2.5min.
+                on-timeout = "brightnessctl -s set 10";         # set monitor backlight to minimum, avoid 0 on OLED monitor.
+                on-resume = "brightnessctl -r";               # monitor backlight restore.
+            }
+            {
+              timeout = 150;
+              on-timeout = "brightnessctl -sd rgb:kbd_backlight set 0";
+              on-resume = "brightnessctl -rd rgb:kbd_backlight";
+            }
+            {
+              timeout = 300;
+              on-timeout = "loginctl lock-session";
+            }
+            {
+              timeout = 420;
+              on-timeout = "hyprctl dispatch dpms off";
+              on-resume = "hyprctl dispatch dpms on";
+            }
+            {
+              timeout = 600;
+              on-timeout = "systemctl suspend";
+            }
             ];
         };
     };
