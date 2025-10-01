@@ -28,6 +28,7 @@ return {
         "css",
         "heex",
         "hyprlang",
+        "rust",
       },
 
       highlight = {
@@ -88,6 +89,7 @@ return {
         },
         nixd = {},
         hyprls = {},
+        rust_analyzer = {},
       },
     },
   },
