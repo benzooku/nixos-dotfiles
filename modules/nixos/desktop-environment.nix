@@ -28,6 +28,7 @@
         eog
         qalculate-qt
         haruna
+        mixxx
 
         # DE
         hyprpanel
