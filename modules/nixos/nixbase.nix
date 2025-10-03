@@ -1,6 +1,7 @@
 {pkgs, ...}:
 {
     services.udisks2.enable = true;
+    services.gvfs.enable = true;
 
     nix.settings.experimental-features = ["nix-command" "flakes"];
     nix.settings = {
