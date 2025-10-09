@@ -30,6 +30,9 @@
         haruna
         mixxx
 
+        wineWowPackages.waylandFull
+        winetricks
+
         # DE
         hyprpanel
         kitty
@@ -58,6 +61,12 @@
         hypridle
 
 
+        wineWowPackages.stable
+        wineasio
+
+
+
+
         # Themes
         
         (catppuccin-sddm.override {
@@ -77,6 +86,10 @@
         #extra for games
         mangohud
     ];
+
+
+        hardware.opengl.driSupport32Bit = true;
+        hardware.pulseaudio.support32Bit = true;
 
     # steam
     programs = {

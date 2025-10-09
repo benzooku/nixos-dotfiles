@@ -85,7 +85,13 @@
      git
      wget
      neovim
+
+     wineWowPackages.stable
+    wineasio
   ];
+
+  hardware.opengl.driSupport32Bit = true;
+  hardware.pulseaudio.support32Bit = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -109,7 +115,8 @@
   ];
   
   services.thermald.enable = true;
-  services.tlp.enable = true;
+
+  services.desktopManager.plasma6.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
