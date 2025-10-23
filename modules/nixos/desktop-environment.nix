@@ -57,6 +57,9 @@
         hyprlock
         hypridle
 
+        cudaPackages.cudatoolkit
+        vulkan-loader
+        vulkan-tools
 
         # Themes
         

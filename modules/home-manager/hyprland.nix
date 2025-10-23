@@ -40,7 +40,7 @@
 
     qt = {
         enable = true;
-        platformTheme.name = "gtk";
+        #platformTheme.name = "gtk";
     };
 
     wayland.windowManager.hyprland.settings = {

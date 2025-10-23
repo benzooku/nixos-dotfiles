@@ -26,6 +26,7 @@
         footer = true;
     };
 
+    boot.supportedFilesystems = [ "ntfs" ];
 
     services.xserver.enable = true;
     services.displayManager.sddm = {
