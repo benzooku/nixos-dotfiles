@@ -29,6 +29,7 @@
         qalculate-qt
         haruna
         mixxx
+        tor-browser
 
         # DE
         hyprpanel
@@ -95,7 +96,7 @@
             localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
         };
     };
-    hardware.xone.enable = true; # support for the xbox controller USB dongle
+    #hardware.xone.enable = true; # support for the xbox controller USB dongle
 
 
     fonts.packages = with pkgs; [

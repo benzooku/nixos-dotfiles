@@ -27,6 +27,7 @@
       fd
       ast-grep
       nettools
+      gemini-cli
       ];
 
 # KVM
