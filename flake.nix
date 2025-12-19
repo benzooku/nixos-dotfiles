@@ -11,6 +11,10 @@
         grub2-themes = {
             url = "github:vinceliuice/grub2-themes";
         };
+        zen-browser = {
+            url = "github:youwen5/zen-browser-flake";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
     outputs = { self, nixpkgs, ... }@inputs:

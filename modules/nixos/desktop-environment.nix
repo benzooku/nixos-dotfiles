@@ -1,4 +1,4 @@
-{ pkgs, ...}:
+{ inputs, pkgs, ...}:
 {
     programs.hyprland = {
         enable = true;
@@ -30,6 +30,7 @@
         haruna
         mixxx
         tor-browser
+        inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
 
         # DE
         hyprpanel
