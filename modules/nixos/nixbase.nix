@@ -20,4 +20,8 @@
 		dates = [ "daily" ];
 	    };
     };
+
+    nixpkgs.overlays = [
+      (import ../../modules/nixos/mvfst-git.nix)
+    ];
 }
