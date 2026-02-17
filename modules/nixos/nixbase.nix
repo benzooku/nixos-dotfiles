@@ -6,22 +6,20 @@
     nix.settings.experimental-features = ["nix-command" "flakes"];
     nix.settings = {
       max-jobs = "auto";
-      http-connections = 30;
+      http-connections = 20;
       download-attempts = 10;
-      download-buffer-size = 524288000;
+      download-buffer-size = 1073742000;
+                            
     };
 
     nix = {
 	    daemonCPUSchedPolicy = "idle";
 	    daemonIOSchedClass = "idle";
-
+   e
 	    optimise = {
 	    	automatic = true;
 		dates = [ "daily" ];
 	    };
     };
 
-    nixpkgs.overlays = [
-      (import ../../modules/nixos/mvfst-git.nix)
-    ];
 }

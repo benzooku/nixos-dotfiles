@@ -223,7 +223,6 @@ misc {
     swallow_regex = (foot|kitty|allacritty|Alacritty)
     disable_hyprland_logo = true
     force_default_wallpaper = 0
-    new_window_takes_over_fullscreen = 2
 }
 
 # See https://wiki.hyprland.org/Configuring/Keywords/ for more
@@ -318,29 +317,75 @@ bind = $mainMod, L, exec, wlogout
 
 # ######## Window rules ########
 
-windowrule = center, title:^(Open File)(.*)$
-windowrule = center, title:^(Select a File)(.*)$
-windowrule = center, title:^(Choose wallpaper)(.*)$
-windowrule = center, title:^(Open Folder)(.*)$
-windowrule = center, title:^(Save As)(.*)$
-windowrule = center, title:^(Library)(.*)$
-windowrule = center, title:^(File Upload)(.*)$
+
+windowrule {
+  name = windowrule-1
+  center = on
+  float = on
+  match:title = ^(Open File)(.*)$
+}
+
+windowrule {
+  name = windowrule-2
+  center = on
+  float = on
+  match:title = ^(Select a File)(.*)$
+}
+
+windowrule {
+  name = windowrule-3
+  center = on
+  float = on
+  match:title = ^(Choose wallpaper)(.*)$
+}
+
+windowrule {
+  name = windowrule-4
+  center = on
+  float = on
+  match:title = ^(Open Folder)(.*)$
+}
+
+windowrule {
+  name = windowrule-5
+  center = on
+  float = on
+  match:title = ^(Save As)(.*)$
+}
+
+windowrule {
+  name = windowrule-6
+  center = on
+  float = on
+  match:title = ^(Library)(.*)$
+}
+
+windowrule {
+  name = windowrule-7
+  center = on
+  float = on
+  match:title = ^(File Upload)(.*)$
+}
+
 
 # Dialogs
-windowrule=float,title:^(Open File)(.*)$
-windowrule=float,title:^(Select a File)(.*)$
-windowrule=float,title:^(Choose wallpaper)(.*)$
-windowrule=float,title:^(Open Folder)(.*)$
-windowrule=float,title:^(Save As)(.*)$
-windowrule=float,title:^(Library)(.*)$
-windowrule=float,title:^(File Upload)(.*)$
 
-windowrule=float,class:^(org.pulseaudio.pavucontrol)$
-windowrule=move 50% 70,class:^(org.pulseaudio.pavucontrol)$
-windowrule=size 50% 40%,class:^(org.pulseaudio.pavucontrol)$
+windowrule {
+  name = windowrule-8
+  float = on
+  move = ((monitor_w*0.5)) (70)
+  size = (monitor_w*0.5) (monitor_h*0.4)
+  match:class = ^(org.pulseaudio.pavucontrol)$
+}
+
 
 # No shadow for tiled windows
-windowrulev2 = noshadow,floating:0
+windowrule {
+  name = windowrule-9
+  no_shadow = on
+  match:float = 0
+}
+
 
 # ######## Layer rules ########
 layerrule = xray 1, .*
