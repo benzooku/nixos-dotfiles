@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 {
-  boot.kernelParams = ["nvidia_drm.fbdev=1" "nvidia_drm.modeset=1"];
+  # boot.kernelParams = ["nvidia_drm.fbdev=1" "nvidia_drm.modeset=1"];
 
   # Enable OpenGL
   hardware.graphics = {
@@ -14,7 +14,6 @@
   services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
-    forceFullCompositionPipeline = true;
     modesetting.enable = true;
 
     # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
@@ -40,7 +39,7 @@
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
+    package = config.boot.kernelPackages.nvidiaPackages.production;
     
   };
 

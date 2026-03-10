@@ -9,7 +9,7 @@
 
 
 # Go
-    go
+      go
 
 # General
       inotify-tools
@@ -62,6 +62,7 @@
       host all       all     ::1/128        trust
       '';
   };
+
 # non-nix Executables
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [

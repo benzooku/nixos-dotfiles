@@ -31,6 +31,7 @@
         mixxx
         tor-browser
         inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+        teamspeak6-client
 
         # DE
         hyprpanel

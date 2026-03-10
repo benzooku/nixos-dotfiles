@@ -387,15 +387,6 @@ windowrule {
 }
 
 
-# ######## Layer rules ########
-layerrule = xray 1, .*
-layerrule = blur, notifications
-layerrule = ignorealpha 0.69, notifications
-
-layerrule = blur, overview
-layerrule = ignorealpha 0.6, overview
-layerrule = blur, sideright
-layerrule = ignorealpha 0.6, sideright
 
         '';
 
@@ -495,7 +486,7 @@ label {
     services.hyprpaper = {
         enable = true;
         settings = {
-            preload = ["~/Pictures/wallpapers/temple.png" "~/nixos/modules/home-manager/nixos.png"];
+            preload = ["~/nixos/modules/home-manager/nixos.png"];
             wallpaper = [
                 "HDMI-A-1,~/nixos/modules/home-manager/nixos.png"
                 "HDMI-A-2,~/nixos/modules/home-manager/nixos.png"
