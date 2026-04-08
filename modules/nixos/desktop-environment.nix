@@ -58,6 +58,7 @@
         hyprpaper
         hyprlock
         hypridle
+        papirus-icon-theme
 
         cudaPackages.cudatoolkit
         vulkan-loader

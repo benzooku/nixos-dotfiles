@@ -8,8 +8,8 @@
       # Display
       mode = "drun";
       show-icons = true;
-      icon-theme = "Adwaita";
-      icon-size = 24;
+      icon-theme = "Papirus";
+      icon-size = 32;
 
       # Window
       location = "center";
