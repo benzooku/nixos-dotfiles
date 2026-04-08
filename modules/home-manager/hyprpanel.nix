@@ -89,7 +89,6 @@
       bar.windowtitle.custom_title = true;
       bar.windowtitle.label = true;
       bar.windowtitle.icon = false;
-      theme.bar.buttons.windowtitle.enableBorder = false;
 
       # ── Media ─────────────────────────────────────────────
       bar.media.show_label = true;
