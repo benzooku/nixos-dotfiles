@@ -140,11 +140,8 @@
       theme.bar.menus.border.radius = "0.4em";
       theme.bar.menus.border.size = "0.13em";
       theme.bar.menus.buttons.radius = "0.4em";
-      theme.matugen = false;
 
       # ── Colors (Catppuccin Mocha) ─────────────────────────
-      theme.bar.menus.background = "#1e1e2e";
-      theme.bar.border.color = "#313244";
       theme.bar.buttons.background_opacity = 0;
       theme.bar.buttons.opacity = 100;
       theme.bar.buttons.monochrome = false;
