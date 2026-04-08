@@ -19,8 +19,6 @@
 
   home.file = {
     ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink ../../modules/home-manager/nvim;
-    ".config/rofi".source = config.lib.file.mkOutOfStoreSymlink ../../modules/home-manager/rofi;
-    ".config/rofi.ben".source = config.lib.file.mkOutOfStoreSymlink ../../modules/home-manager/rofi.ben;
     ".config/waybar".source = config.lib.file.mkOutOfStoreSymlink ../../modules/home-manager/waybar;
 # # You can also set the file content immediately.
 # ".gradle/gradle.properties".text = ''

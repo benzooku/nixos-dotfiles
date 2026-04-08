@@ -37,7 +37,7 @@
         kitty
         networkmanagerapplet
         cliphist
-        rofi
+        wofi
         uwsm
         wl-clipboard
         pavucontrol

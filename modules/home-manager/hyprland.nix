@@ -69,7 +69,7 @@
 
         "$terminal" = "uwsm app -- kitty";
         "$fileManager" = "uwsm app -- thunar";
-        "$menu" = "uwsm app -- ~/.config/rofi/launchers/type-5/launcher.sh";
+        "$menu" = "wofi --show drun";
         
         cursor = {
             no_hardware_cursors = "true";
@@ -310,7 +310,7 @@ bindl = , switch:on:Lid Switch, exec, hyprctl dispatch dpms off
 bindl = , switch:off:Lid Switch, exec, hyprctl dispatch dpms on
 
 # Clipboard binds
-bind = SUPER, d, exec, pkill rofi || cliphist list | rofi --no-fuzzy --dmenu | cliphist decode | wl-copy
+bind = SUPER, d, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy
 
 bind = , PRINT, exec, hyprshot -m window -o ~/Pictures
 bind = SHIFT, PRINT, exec, hyprshot -m region -o ~/Pictures
