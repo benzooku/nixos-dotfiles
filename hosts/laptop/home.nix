@@ -10,6 +10,7 @@
             ./../../modules/home-manager/lazygit.nix
             ./../../modules/home-manager/hyprpanel-laptop.nix
             ./../../modules/home-manager/device.nix
+      ./../../modules/home-manager/wofi.nix
         ];
 
 

@@ -10,6 +10,7 @@
       ./../../modules/home-manager/lazygit.nix
       ./../../modules/home-manager/hyprpanel.nix
       ./../../modules/home-manager/device.nix
+      ./../../modules/home-manager/wofi.nix
     ];
 # Home Manager needs a bit of information about you and the paths it should
 # manage.

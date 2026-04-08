@@ -1,0 +1,74 @@
+* {
+    font-family: "JetBrains Mono", "Font Awesome 6 Pro", monospace;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+window {
+    background: rgba(26, 27, 38, 0.95);
+    border: 1px solid #414868;
+    border-radius: 12px;
+    padding: 12px;
+}
+
+#input {
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #414868;
+    background: #1a1b26;
+    color: #c0caf5;
+    font-size: 15px;
+    placeholder-color: #565f89;
+}
+
+#input:focus {
+    border-color: #7aa2f7;
+    outline: none;
+}
+
+#inner-box {
+    border: none;
+    margin: 0;
+    padding: 4px;
+    border-radius: 8px;
+    background: transparent;
+}
+
+#outer-box {
+    border: none;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+}
+
+#scroll {
+    margin: 0;
+    padding: 0;
+}
+
+#text {
+    margin: 0;
+}
+
+#entry {
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: transparent;
+}
+
+#entry:selected {
+    background: rgba(122, 162, 247, 0.15);
+}
+
+#entry:selected #text {
+    color: #7aa2f7;
+}
+
+#text:empty {
+    padding: 2px;
+}
+
+#entry:hover #text {
+    color: #7aa2f7;
+}
