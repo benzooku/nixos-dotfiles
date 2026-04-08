@@ -8,7 +8,7 @@
       theme.font.label = "JetBrainsMono Nerd Font Medium";
       theme.font.size = "0.95rem";
 
-      menus.transition = "crossfade";
+      menus.transition = "popin";
       scalingPriority = "gdk";
 
       # ── Bar layout (all monitors) ────────────────────────────
