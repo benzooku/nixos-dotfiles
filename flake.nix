@@ -15,9 +15,13 @@
             url = "github:youwen5/zen-browser-flake";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        chaotic = { 
+          url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+          inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
-    outputs = { self, nixpkgs, ... }@inputs:
+    outputs = { self, nixpkgs, chaotic, ... }@inputs:
       let
         commonModules = [
           ./modules/nixos/nixbase.nix
@@ -33,6 +37,7 @@
                   modules = commonModules ++ [
                       ./hosts/main/configuration.nix
                       ./modules/nixos/nvidia.nix
+                      inputs.chaotic.nixosModules.default
                       inputs.home-manager.nixosModules.home-manager
                       {
                         home-manager.useGlobalPkgs = true;

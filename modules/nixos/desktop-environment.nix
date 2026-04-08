@@ -23,7 +23,6 @@
         btop
         kdePackages.ark
         kdePackages.kcalc
-        neofetch
         obsidian
         eog
         qalculate-qt
@@ -79,9 +78,11 @@
         # Extra Software
         gimp3-with-plugins
         element-desktop
+        smartmontools
 
         #extra for games
         mangohud
+        protonup-qt
     ];
 
     # steam
@@ -98,6 +99,7 @@
             localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
         };
     };
+    programs.gamemode.enable = true;
     #hardware.xone.enable = true; # support for the xbox controller USB dongle
 
 
@@ -107,6 +109,13 @@
     ];
 
     programs.thunar.enable = true;
+    programs.thunar.plugins = with pkgs; [
+      thunar-archive-plugin
+      thunar-volman 
+    ];
+    services.tumbler.enable = true;
+    services.gvfs.enable = true;
+
     programs.zsh.enable = true;
     users.defaultUserShell = pkgs.zsh;
 
@@ -124,6 +133,6 @@
         jack.enable = true;
     };
 
-    documentation.man.generateCaches = true;
+    documentation.man.cache.enable = true;
 
 }

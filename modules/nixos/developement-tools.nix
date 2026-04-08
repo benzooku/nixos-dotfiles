@@ -27,7 +27,10 @@
       fd
       ast-grep
       nettools
-      gemini-cli
+      gemini-cli-bin
+      inetutils
+      nodejs_20
+      ripgrep
       ];
 
 # KVM
@@ -47,6 +50,10 @@
     setSocketVariable = true;
   };
   users.users.ben.extraGroups = [ "docker" ];
+
+
+
+  services.mailhog.enable = true;
 
 # Postgres
   services.postgresql = {

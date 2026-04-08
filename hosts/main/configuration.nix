@@ -39,7 +39,15 @@
     
 
     # Use latest kernel.
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelPackages = pkgs.linuxPackages_zen;
+
+    # services.scx.enable = true; 
+    # services.scx.scheduler = "scx_rusty";
+    #
+    # nix.settings = {
+    #   substituters = [ "https://chaotic-nyx.cachix.org/" ];
+    #   trusted-public-keys = [ "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8=" ];
+    # };
 
     networking.hostName = "Ben-PC"; # Define your hostname.
     # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -109,6 +117,10 @@
       enable = true;
       enableSSHSupport = true;
     };
+
+
+    powerManagement.cpuFreqGovernor = "performance";
+    services.earlyoom.enable = true;
 
     # List services that you want to enable:
 

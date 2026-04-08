@@ -104,70 +104,84 @@
 
             layout = "dwindle";
 
-            # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
+# Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
             allow_tearing = "true";
         };
 
 
+        animation = [
+          "windows, 1, 5, myBezier, popin 80%"
+            "windowsMove, 1, 4, easeOut, slide"
+            "windowsIn, 1, 5, easeOut, popin 85%"
+            "windowsOut, 1, 4, easeOut, popin 85%"
+            "fadeIn, 1, 4, easeOut"
+            "fadeOut, 1, 3, easeOut"
+            "workspaces, 1, 5, easeOut, slide"
+            "workspacesIn, 1, 4, easeOut, slidefade 10%"
+            "workspacesOut, 1, 4, easeOut, slidefade 10%"
+            "specialWorkspace, 1, 5, easeOut, slidefadevert 10%"
+            "specialWorkspaceIn, 1, 4, easeOut, slidefadevert 10%"
+            "specialWorkspaceOut, 1, 4, easeOut, slidefadevert 10%"
+            "layers, 1, 4, easeOut, slide"
+            "layersIn, 1, 4, easeOut, slidefade 15%"
+            "layersOut, 1, 3, easeOut, slidefade 15%"
+            "border, 1, 3, easeOut"
+            "borderangle, 1, 15, easeOut, once"
+            "fadeDim, 1, 4, easeOut"
+            "fadeLayers, 1, 4, easeOut"
+        ];
+
+        bezier = [
+          "myBezier, 0.05, 0.9, 0.1, 1.05"
+            "easeOut, 0.22, 1, 0.36, 1"
+        ];
+
+# ── Decoration ──────────────────────────────────────────
         decoration = {
-            # See https://wiki.hyprland.org/Configuring/Variables/ for more
+          rounding = 5;
+          active_opacity = 1.0;
+          inactive_opacity = 1.0;
+          fullscreen_opacity = 1.0;
 
-            rounding = 2;
+          shadow = {
+            enabled = true;
+            range = 12;
+            render_power = 3;
+            color = "rgba(00000055)";
+            color_inactive = "rgba(00000000)";
+          };
 
-            blur = {
-                enabled = "true";
-                xray = true;
-                special = "false";
-                new_optimizations = "true";
-                size = 14;
-                passes = 2;
-                brightness = 1;
-                noise = 0.01;
-                contrast = 1;
-                popups = "true";
-                popups_ignorealpha = "0.6";
-            };
-
+          blur = {
+            enabled = true;
+            size = 6;
+            passes = 3;
+            noise = 0.02;
+            contrast = 1.1;
+            brightness = 1.0;
+            vibrancy = 0.2;
+            vibrancy_darkness = 0.5;
+            special = true;
+            popups = true;
+            popups_ignorealpha = 0.6;
+          };
+          dim_inactive = true;
+          dim_strength = 0.1;
+          dim_special = 0.3;
+          dim_around = 0.5;
         };
 
-
-        animations = {
-            enabled = "true";
-
-            bezier = [ "linear, 0, 0, 1, 1"
-                "md3_standard, 0.2, 0, 0, 1"
-                "md3_decel, 0.05, 0.7, 0.1, 1"
-                "md3_accel, 0.3, 0, 0.8, 0.15"
-                "overshot, 0.05, 0.9, 0.1, 1.1"
-                "crazyshot, 0.1, 1.5, 0.76, 0.92"
-                "hyprnostretch, 0.05, 0.9, 0.1, 1.0"
-                "menu_decel, 0.1, 1, 0, 1"
-                "menu_accel, 0.38, 0.04, 1, 0.07"
-                "easeInOutCirc, 0.85, 0, 0.15, 1"
-                "easeOutCirc, 0, 0.55, 0.45, 1"
-                "easeOutExpo, 0.16, 1, 0.3, 1"
-                "softAcDecel, 0.26, 0.26, 0.15, 1"
-                "md2, 0.4, 0, 0.2, 1" # use with .2s duration
-            ];
-            animation = ["windows, 1, 3, md3_decel, popin 60%"
-                "windowsIn, 1, 3, md3_decel, popin 60%"
-                "windowsOut, 1, 3, md3_accel, popin 60%"
-                "border, 1, 10, default"
-                "fade, 1, 3, md3_decel"
-                "layersIn, 1, 3, menu_decel, slide"
-                "layersOut, 1, 1.6, menu_accel"
-                "fadeLayersIn, 1, 2, menu_decel"
-                "fadeLayersOut, 1, 4.5, menu_accel"
-                "workspaces, 1, 7, menu_decel, slide"
-                "specialWorkspace, 1, 3, md3_decel, slidevert"
-            ];
+# ── Misc ────────────────────────────────────────────────
+        misc = {
+          animate_manual_resizes = true;
+          animate_mouse_windowdragging = true;
+          disable_hyprland_logo = true;
+          disable_splash_rendering = true;
         };
-
 
         dwindle = {
             # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-            pseudotile = "yes"; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-            preserve_split = "yes"; # you probably want this
+            pseudotile = true; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+            preserve_split = true; # you probably want this
         };
 
         master = {
@@ -184,15 +198,12 @@
 env = SDL_VIDEODRIVER,wayland
 env = CLUTTER_BACKEND,wayland
 
-env = __NV_PRIME_RENDER_OFFLOAD,1
-env = __VK_LAYER_NV_optimus,NVIDIA_only
+env = SDL_VIDEO_DRIVER,wayland
 
 env = QT_AUTO_SCREEN_SCALE_FACTOR,1
 
 # NVIDIA Settings
-env = LIBVA_DRIVER_NAME,nvidia
-env = GBM_BACKEND,nvidia-drm
-
+env = XDG_SESSION_TYPE,wayland
 env = NVD_BACKEND,direct
 
 env = HYPRCURSOR_THEME,Bibata-Modern-Ice
@@ -211,14 +222,11 @@ env = QT_QPA_PLATFORMTHEME,qt6ct # change to qt6ct if you have that
 
 # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
 
-
-
+# EXPERIMENTAL
+render:direct_scanout = true
 
 misc {
     # See https://wiki.hyprland.org/Configuring/Variables/ for more
-    force_default_wallpaper = 1 # Set to 0 or 1 to disable the anime mascot wallpapers
-    animate_manual_resizes = false
-    animate_mouse_windowdragging = false
     enable_swallow = false
     swallow_regex = (foot|kitty|allacritty|Alacritty)
     disable_hyprland_logo = true
@@ -234,9 +242,9 @@ bind = $mainMod, C, killactive,
 bind = $mainMod, E, exec, $fileManager
 bind = $mainMod, V, togglefloating, 
 bind = $mainMod, R, exec, $menu
-bind = $mainMod, P, pseudo, # dwindle
-bind = $mainMod, J, togglesplit, # dwindle
-bind = $mainMod, H, swapsplit
+bind = $mainMod, P, pseudo
+bind = $mainMod, J, layoutmsg, togglesplit
+bind = $mainMod, H, layoutmsg, swapsplit
 
 bind = $mainMod, F, fullscreen 
 
@@ -385,6 +393,13 @@ windowrule {
   no_shadow = on
   match:float = 0
 }
+
+windowrule {
+    name = cs2
+    immediate = true
+    fullscreen = true
+    match:class = ^(cs2)$
+  }
 
 
 

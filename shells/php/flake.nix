@@ -12,15 +12,22 @@
 
   php = pkgs.php.withExtensions ({ enabled, all }: with all; [
       xsl
+      zlib
+      tokenizer
+      filter
+      openssl
+      iconv
+      session
   ]);
 
   in {
-    devShells.default = pkgs.mkShell {
+    devShells.x86_64-linux.default = pkgs.mkShell {
       packages = [
         php
           pkgs.phpPackages.composer
           pkgs.symfony-cli
       ];
+
 
       shellHook = ''
         zsh

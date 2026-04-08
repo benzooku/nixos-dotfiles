@@ -22,13 +22,12 @@ return {
         "regex",
         "tsx",
         "typescript",
-        "vim",
         "yaml",
         "elixir",
         "css",
         "heex",
-        "hyprlang",
         "rust",
+        "php",
       },
 
       highlight = {
@@ -90,6 +89,7 @@ return {
         nixd = {},
         hyprls = {},
         rust_analyzer = {},
+        phpactor = {},
       },
     },
   },
