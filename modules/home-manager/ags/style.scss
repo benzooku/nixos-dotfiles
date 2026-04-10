@@ -1,24 +1,16 @@
-// Azurra Theme
-$bg-deep: #0d1117;
-$bg-surface: #161b22;
-$bg-muted: #21262d;
-$border: #30363d;
-$text: #e6edf3;
-$text-dim: #8b949e;
-$accent: #58a6ff;
-
 * {
   font-family: "JetBrains Mono", monospace;
   font-size: 13px;
+  color: #e6edf3;
 }
 
-window.Bar {
+.Bar {
   min-height: 40px;
-  background: $bg-deep;
+  background: #0d1117;
 }
 
 .bar {
-  background: $bg-deep;
+  background: #0d1117;
 }
 
 .bar-left,
@@ -30,20 +22,20 @@ window.Bar {
 .ws-label,
 .media-label,
 .sys-label {
-  color: $text;
+  color: #e6edf3;
   font-size: 12px;
 }
 
 .sep {
-  background: $border;
+  background: #30363d;
   min-width: 1px;
   margin: 6px 4px;
 }
 
 tooltip {
-  background: $bg-surface;
-  color: $text;
-  border: 1px solid $border;
+  background: #161b22;
+  color: #e6edf3;
+  border: 1px solid #30363d;
   border-radius: 6px;
   padding: 6px 10px;
   font-size: 12px;
