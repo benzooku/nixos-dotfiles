@@ -1,33 +1,38 @@
-import AstalNetwork from "gi://AstalNetwork?version=0.1"
-
-function getIcon(net: AstalNetwork.Network): string {
-  const primary = net.primary
-  if (!primary) return "睊"
-  if (primary.strength < 30) return "📶"
-  if (primary.strength < 60) return "📶"
-  return "📶"
-}
+import { execAsync } from "ags/process"
+import { createPoll } from "ags/time"
 
 export default function Network() {
-  const net = AstalNetwork.get_default()
-  const primary = net.primary
-
-  if (!primary || !primary.is_connected) {
-    return (
-      <button class="net-btn disconnected">
-        <label label="睊" class="net-icon" />
-        <label label="—" class="net-name" />
-      </button>
-    )
-  }
-
-  const ssid = primary.ssid || "Wired"
-  const icon = getIcon(net)
+  const net = createPoll<{ ssid: string; connected: boolean }>(
+    { ssid: "—", connected: false },
+    5000,
+    () =>
+      execAsync([
+        "bash",
+        "-c",
+        `nmcli -t -f STATE,SSID dev wifi 2>/dev/null | head -1 || echo "disconnected:"`,
+      ]).then((out) => {
+        const line = out.trim()
+        if (line.startsWith("disconnected") || !line) {
+          return { ssid: "—", connected: false }
+        }
+        const parts = line.split(":")
+        return {
+          ssid: parts[1] || parts[0] || "—",
+          connected: true,
+        }
+      }),
+  )
 
   return (
-    <button class="net-btn" tooltipText={ssid}>
-      <label label={icon} class="net-icon" />
-      <label label={ssid} class="net-name" truncate />
+    <button
+      class={net((n) => `net-btn ${n.connected ? "" : "disconnected"}`)}
+      tooltipText={net((n) => n.connected ? n.ssid : "Disconnected")}
+    >
+      <label
+        label={net((n) => (n.connected ? "📶" : "睊"))}
+        class="net-icon"
+      />
+      <label label={net((n) => n.ssid)} class="net-name" />
     </button>
   )
 }

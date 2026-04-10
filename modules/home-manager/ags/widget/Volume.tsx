@@ -26,7 +26,7 @@ export default function Volume() {
 
   return (
     <button
-      class={`volume-btn ${muted((m) => (m ? "muted" : ""))}`}
+      class={muted((m) => `volume-btn ${m ? "muted" : ""}`)}
       onClicked={() =>
         execAsync(["wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle"])
       }

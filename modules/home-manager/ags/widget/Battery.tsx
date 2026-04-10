@@ -1,7 +1,8 @@
-import AstalBattery from "gi://AstalBattery?version=0.1"
+import { execAsync } from "ags/process"
+import { createPoll } from "ags/time"
 
-function batteryIcon(pct: number, state: AstalBattery.State): string {
-  if (state === AstalBattery.State.CHARGING) return "⚡"
+function batteryIcon(pct: number, charging: boolean): string {
+  if (charging) return "⚡"
   if (pct >= 90) return "󰁹"
   if (pct >= 80) return "󰁿"
   if (pct >= 70) return "󰁾"
@@ -15,22 +16,37 @@ function batteryIcon(pct: number, state: AstalBattery.State): string {
 }
 
 export default function Battery() {
-  const device = AstalBattery.get_default()
-
-  if (!device) return <box />
-
-  const pct = Math.round(device.percentage * 100)
-  const state = device.state
-  const isLow = pct < 20 && state !== AstalBattery.State.CHARGING
-  const isCharging = state === AstalBattery.State.CHARGING
+  const bat = createPoll<{ pct: number; charging: boolean }>(
+    { pct: 0, charging: false },
+    30000,
+    () =>
+      execAsync([
+        "bash",
+        "-c",
+        "cat /sys/class/power_supply/BAT0/capacity 2>/dev/null || echo '0'",
+      ]).then((out) => {
+        const pct = parseInt(out.trim(), 10)
+        const charging = execAsync([
+          "bash",
+          "-c",
+          "cat /sys/class/power_supply/BAT0/status 2>/dev/null || echo 'Unknown'",
+        ]).then((s) => s.trim() === "Charging")
+        return {
+          pct: isNaN(pct) ? 0 : pct,
+          charging: false,
+        }
+      }),
+  )
 
   return (
     <button
-      class={`bat-btn ${isLow ? "low" : ""} ${isCharging ? "charging" : ""}`}
-      tooltipText={`${pct}%${isCharging ? " (charging)" : ""}`}
+      class={bat((b) =>
+        `bat-btn ${b.pct < 20 && !b.charging ? "low" : ""} ${b.charging ? "charging" : ""}`
+      )}
+      tooltipText={bat((b) => `${b.pct}%${b.charging ? " (charging)" : ""}`)}
     >
-      <label label={batteryIcon(pct, state)} class="bat-icon" />
-      <label label={`${pct}%`} class="bat-pct" />
+      <label label={bat((b) => batteryIcon(b.pct, b.charging))} class="bat-icon" />
+      <label label={bat((b) => `${b.pct}%`)} class="bat-pct" />
     </button>
   )
 }

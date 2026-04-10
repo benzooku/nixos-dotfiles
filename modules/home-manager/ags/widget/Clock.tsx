@@ -1,5 +1,5 @@
-import { createPoll } from "ags/time"
 import { execAsync } from "ags/process"
+import { createPoll } from "ags/time"
 
 export default function Clock() {
   const timeStr = createPoll<string>(

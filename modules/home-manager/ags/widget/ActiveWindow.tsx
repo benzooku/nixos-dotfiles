@@ -1,16 +1,6 @@
 import { execAsync } from "ags/process"
 import { createPoll } from "ags/time"
 
-interface HyprClient {
-  title: string
-  class: string
-  initialTitle: string
-}
-
-interface HyprClientsResult {
-  clients: HyprClient[]
-}
-
 export default function ActiveWindow() {
   const title = createPoll<string>(
     "",
@@ -31,7 +21,6 @@ export default function ActiveWindow() {
           if (!t) return "—"
           return t.length > 45 ? t.slice(0, 45) + "…" : t
         })}
-        truncate
       />
     </box>
   )

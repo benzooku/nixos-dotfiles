@@ -7,14 +7,6 @@ interface HyprWorkspace {
   windows: number
 }
 
-interface HyprworkspacesResult {
-  workspaces: HyprWorkspace[]
-}
-
-interface HyprFocusResult {
-  focused: boolean
-}
-
 export default function Workspaces() {
   // Poll workspace list from Hyprland
   const workspaces = createPoll<HyprWorkspace[]>(
@@ -56,25 +48,32 @@ export default function Workspaces() {
     <box class="workspaces" spacing={2}>
       {Array.from({ length: NUM_WORKSPACES }, (_, i) => i + 1).map((n) => {
         const wsId = n
-        const occupied = workspaces((list) =>
-          list.some((w) => w.id === wsId),
-        )
-        const active = focusedId((id) => id === wsId)
 
         return (
           <button
-            class={`ws-btn ${active ? "active" : ""} ${occupied && !active ? "occupied" : ""}`}
+            class={workspaces((list) =>
+              focusedId((fid) =>
+                list.some((w) => w.id === wsId)
+                  ? fid === wsId
+                    ? "ws-btn active occupied"
+                    : "ws-btn occupied"
+                  : fid === wsId
+                    ? "ws-btn active"
+                    : "ws-btn"
+              )
+            )}
             onClicked={() =>
               execAsync(["bash", "-c", `hyprctl dispatch workspace ${wsId}`])
             }
-            tooltipText={
-              occupied
-                ? `${wsId} — ${workspaces((l) => l.find((w) => w.id === wsId)?.windows ?? 0)} window(s)`
-                : `Workspace ${wsId}`
-            }
+            tooltipText={workspaces((list) => {
+              const ws = list.find((w) => w.id === wsId)
+              return ws ? `${wsId} — ${ws.windows} window(s)` : `Workspace ${wsId}`
+            })}
           >
             <label label={String(n)} class="ws-num" />
-            {occupied && !active && <box class="ws-dot" halign={Gtk.Align.END} valign={Gtk.Align.END} />}
+            {workspaces((list) => list.some((w) => w.id === wsId) && (
+              <box class="ws-dot" halign={Gtk.Align.END} valign={Gtk.Align.END} />
+            ))}
           </button>
         )
       })}
