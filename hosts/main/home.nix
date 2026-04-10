@@ -8,7 +8,6 @@
       ./../../modules/home-manager/zsh.nix
       ./../../modules/home-manager/kitty.nix
       ./../../modules/home-manager/lazygit.nix
-      ./../../modules/home-manager/ags.nix
       ./../../modules/home-manager/mako.nix
       ./../../modules/home-manager/starship.nix
       ./../../modules/home-manager/device.nix

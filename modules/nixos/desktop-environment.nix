@@ -33,7 +33,6 @@
         teamspeak6-client
 
         # DE
-        ags
         mako
         starship
         kitty

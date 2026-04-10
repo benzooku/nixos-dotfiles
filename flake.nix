@@ -19,14 +19,6 @@
           url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
           inputs.nixpkgs.follows = "nixpkgs";
         };
-        ags = {
-          url = "github:aylur/ags";
-          inputs.nixpkgs.follows = "nixpkgs";
-        };
-        astal = {
-          url = "github:aylur/astal";
-          inputs.nixpkgs.follows = "nixpkgs";
-        };
     };
 
     outputs = { self, nixpkgs, chaotic, ... }@inputs:
@@ -50,7 +42,6 @@
                       {
                         home-manager.useGlobalPkgs = true;
                         home-manager.useUserPackages = true;
-                        home-manager.extraSpecialArgs = { inherit inputs; };
                         home-manager.users.ben = import ./hosts/main/home.nix;
                       }
                   ];
@@ -63,7 +54,6 @@
                       {
                         home-manager.useGlobalPkgs = true;
                         home-manager.useUserPackages = true;
-                        home-manager.extraSpecialArgs = { inherit inputs; };
                         home-manager.users.ben = import ./hosts/laptop/home.nix;
                       }
                   ];
