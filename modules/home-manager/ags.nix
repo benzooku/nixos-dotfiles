@@ -1,12 +1,18 @@
 # AGS — custom bar/widget system
 # Replaces hyprpanel
-{ config, lib, pkgs, ... }:
+# Uses AGS v2 home-manager module
+{ inputs, config, lib, pkgs, ... }:
 
 {
+  imports = [ inputs.ags.homeManagerModules.default ];
 
-  # AGS config directory
-  home.file.ags = {
-    source = ./ags;
-    target = ".config/ags";
+  programs.ags = {
+    enable = true;
+    configDir = ./ags;
+    extraPackages = with pkgs; [
+      inputs.astal.packages.${pkgs.stdenv.hostPlatform.system}.battery
+      inputs.astal.packages.${pkgs.stdenv.hostPlatform.system}.mpris
+      inputs.astal.packages.${pkgs.stdenv.hostPlatform.system}.network
+    ];
   };
 }
