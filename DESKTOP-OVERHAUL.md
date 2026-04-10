@@ -27,14 +27,19 @@ Deep navy base, bright sky blue accent. Bold contrast, very minimal.
 ## Scope
 
 - [ ] Hyprland config (colors, borders, shadows, blur, animations)
-- [ ] hyprpanel (Tokyo Night → Azurra, possible layout tweaks)
-- [ ] hyprlock (new aesthetic, new colors)
+- [ ] **hyprpanel → AGS** (remove hyprpanel entirely, build custom bar/widgets with AGS)
+  - Custom top bar with workspaces, window title, media widget, clock, systray, volume, network, CPU/RAM
+  - AGS-based launcher/menu (custom, not wofi drun)
+  - Lock screen via AGS or keep hyprlock?
+- [ ] **Notification daemon: Mako** (replaces hyprpanel notifications)
+  - Match Azurra colors
+  - Configure urgency levels, timeouts, dismiss gestures
+— [ ] hyprlock (keep or replace with AGS lock screen?)
 - [ ] hyprpaper (wallpaper stays or new?)
 - [ ] GTK theme (match Azurra)
 - [ ] Qt theme (match Azurra)
-- [ ] wofi (match Azurra)
+- [ ] wofi (keep for app launching or replace with AGS launcher?)
 - [ ] kitty (match Azurra)
-- [ ]光 (any other theming touches)
 - [ ] Cursor theme (keep Bibata or change?)
 - [ ] Font choices (keep JetBrains Mono?)
 
@@ -45,7 +50,9 @@ Deep navy base, bright sky blue accent. Bold contrast, very minimal.
 - Keep current dual-monitor setup (HDMI-A-1 144Hz + HDMI-A-2 60Hz)
 - Keep German keyboard layout + caps:escape
 - Keep existing keybindings unless they conflict with new theming
-- No major workflow changes — purely visual overhaul
+- **Replace hyprpanel with AGS** — custom bar, no hyprpanel
+- **Mako notification daemon** — replaces hyprpanel notification module
+- No major workflow changes — purely visual overhaul (but AGS enables much more customization)
 
 ---
 
