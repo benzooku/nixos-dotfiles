@@ -1,5 +1,8 @@
-// AGS Config — Azurra Theme (v1 API)
+// AGS Config — Azurra Theme (v2 API)
 // Replaces hyprpanel
+
+import { App, Widget, Utils } from "resource:///com/github/Aylur/ags/src/index.js";
+import { Service } from "resource:///com/github/Aylur/ags/src/service.js";
 
 // ── Azurra Color Palette ─────────────────────────────────────────
 const C = {
@@ -14,84 +17,57 @@ const C = {
     success: "#3fb950",
 };
 
-// ── Helper: run command and return output ────────────────────────
-const exec = (cmd) => Utils.exec(cmd);
-const execAsync = (cmd) => Utils.execAsync(cmd);
+// ── Hyprland Service ─────────────────────────────────────────────
+const hypr = Service.get("hyprland");
 
 // ── Workspaces ───────────────────────────────────────────────────
-const Workspaces = () => {
-    const box = Widget.Box({});
-
-    const update = () => {
-        execAsync("hyprctl workspaces -j")
-            .then((out) => JSON.parse(out))
-            .then((wss) => {
-                box.children = Array.from({ length: 10 }, (_, i) => {
-                    const ws = i + 1;
-                    const active = wss.some((w) => w.id === ws);
-                    return Widget.Button({
-                        label: `${ws}`,
-                        className: active ? "ws-active" : "ws-inactive",
-                        onClicked: () => exec(`hyprctl dispatch workspace ${ws}`),
-                    });
-                });
-            })
-            .catch(() => {});
-    };
-
-    Utils.interval(1000, update);
-    update();
-    return box;
-};
+const Workspaces = () => Widget.Box({
+    children: Array.from({ length: 10 }, (_, i) => {
+        const ws = i + 1;
+        return Widget.Button({
+            label: `${ws}`,
+            onClicked: () => Utils.exec(`hyprctl dispatch workspace ${ws}`),
+            connections: [[hypr, (box) => {
+                const workspaces = hypr.workspaces;
+                const active = workspaces.some(w => w.id === ws);
+                box.children[i].className = active ? "ws-active" : "ws-inactive";
+            }]],
+        });
+    }),
+});
 
 // ── Window Title ─────────────────────────────────────────────────
-const WindowTitle = () => {
-    const label = Widget.Label({ label: "" });
-
-    Utils.interval(500, () => {
-        execAsync("hyprctl activewindow -j")
-            .then((out) => JSON.parse(out))
-            .then((win) => {
-                const newTitle = win?.title || "";
-                if (newTitle !== label.label) {
-                    label.label = newTitle ? `  ${newTitle}  ` : "";
-                }
-            })
-            .catch(() => { label.label = ""; });
-    });
-
-    return label;
-};
+const WindowTitle = () => Widget.Label({
+    connections: [[hypr, (label) => {
+        const win = hypr.active.window;
+        label.label = win ? `  ${win.title}  ` : "";
+    }]],
+});
 
 // ── Media Widget ────────────────────────────────────────────────
-const Media = () => {
-    const label = Widget.Label({ label: "  󱐾  " });
-
-    Utils.interval(1000, () => {
-        execAsync("playerctl metadata --format '{{title}}' 2>/dev/null")
-            .then((t) => {
-                label.label = t.trim()
-                    ? `  󱐾 ${t.trim().substring(0, 30)}  `
-                    : "  󱐾  ";
-            })
-            .catch(() => { label.label = "  󱐾  "; });
-    });
-
-    return label;
-};
+const Media = () => Widget.Label({
+    connections: [[Service, (label) => {
+        // Use mpris service if available
+        try {
+            const mpris = Service.get("mpris");
+            if (mpris && mpris.players) {
+                const player = Object.values(mpris.players)[0];
+                label.label = player?.title ? `  󱐾 ${player.title.substring(0, 30)}  ` : "  󱐾  ";
+            } else {
+                label.label = "  󱐾  ";
+            }
+        } catch {
+            label.label = "  󱐾  ";
+        }
+    }]],
+});
 
 // ── Clock ───────────────────────────────────────────────────────
-const Clock = () => {
-    const label = Widget.Label({
-        label: "  " + new Date().toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) + "  ",
-    });
-
-    Utils.interval(1000, () => {
+const Clock = () => Widget.Label({
+    connections: [[Utils, (label) => {
         label.label = "  " + new Date().toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) + "  ";
-    });
-
-    return label;
-};
+    }]],
+});
 
 // ── Top Bar ─────────────────────────────────────────────────────
 const TopBar = Widget.Window({
@@ -104,7 +80,7 @@ const TopBar = Widget.Window({
             children: [
                 Widget.Button({
                     label: "  󰣇  ",
-                    onClicked: () => exec("wofi --show drun"),
+                    onClicked: () => Utils.exec("wofi --show drun"),
                 }),
                 Widget.Box({ hexpand: true, children: [Workspaces()] }),
             ],
@@ -157,3 +133,5 @@ App.config({
         }
     `,
 });
+
+App.start();
