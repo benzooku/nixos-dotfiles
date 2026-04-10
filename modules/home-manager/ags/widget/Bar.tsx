@@ -1,35 +1,5 @@
 import { Astal, Gtk, Gdk } from "ags/gtk4"
-import AstalTray from "gi://AstalTray?version=0.1"
 import app from "ags/gtk4/app"
-import Workspaces from "./Workspaces"
-import ActiveWindow from "./ActiveWindow"
-import Media from "./Media"
-import Volume from "./Volume"
-import Network from "./Network"
-import Battery from "./Battery"
-import SysIndicators from "./SysIndicators"
-import Clock from "./Clock"
-
-function Tray() {
-  const tray = AstalTray.Tray.get_default()
-  const items = tray.items
-
-  if (items.length === 0) return <box />
-
-  return (
-    <box class="tray-box" spacing={4}>
-      {items.map((item) => (
-        <button
-          class="tray-btn"
-          onClicked={() => item.activate(0, 0)}
-          tooltipText={item.tooltipText || "Tray item"}
-        >
-          <label label={item.iconName || "●"} />
-        </button>
-      ))}
-    </box>
-  )
-}
 
 function Sep() {
   return <box class="sep" valign={Gtk.Align.FILL} />
@@ -49,27 +19,14 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       application={app}
     >
       <centerbox class="bar">
-        {/* ── Left ── Workspaces + Active window */}
         <box halign={Gtk.Align.START} class="bar-left" hexpand>
-          <Workspaces />
-          <Sep />
-          <ActiveWindow />
+          <label label="1 2 3 4 5 6 7 8 9 10" class="ws-label" />
         </box>
-
-        {/* ── Center ── Media player */}
         <box halign={Gtk.Align.CENTER} class="bar-center" hexpand>
-          <Media />
+          <label label="Media Player" class="media-label" />
         </box>
-
-        {/* ── Right ── System indicators + Tray + Clock */}
         <box halign={Gtk.Align.END} class="bar-right" hexpand>
-          <SysIndicators />
-          <Volume />
-          <Network />
-          <Battery />
-          <Tray />
-          <Sep />
-          <Clock />
+          <label label="Vol  Net  Bat  Clock" class="sys-label" />
         </box>
       </centerbox>
     </window>
