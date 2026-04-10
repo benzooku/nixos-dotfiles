@@ -1,40 +1,62 @@
+import { Gtk } from "ags/gtk4"
 import AstalMpris from "gi://AstalMpris?version=0.1"
-import { execAsync } from "ags/process"
 import { createPoll } from "ags/time"
 
-interface MediaInfo {
-  label: string
-  playing: boolean
-}
-
 export default function Media() {
-  const media = createPoll<MediaInfo>(
-    { label: "—", playing: false },
+  const mpris = AstalMpris.get_default()
+
+  // Poll for player count to detect when media starts/stops
+  const playerCount = createPoll<number>(
+    0,
     1000,
-    () =>
-      execAsync([
-        "bash",
-        "-c",
-        `playerctl -p $(playerctl -l 2>/dev/null | head -1) metadata --format '{{artist}} --- {{title}}' 2>/dev/null || echo ''`,
-      ]).then((out) => {
-        const text = out.trim()
-        if (!text || text === "---") return { label: "—", playing: false }
-        const playing = execAsync([
-          "bash",
-          "-c",
-          "playerctl -p $(playerctl -l 2>/dev/null | head -1) status 2>/dev/null || echo 'Stopped'",
-        ]).then((s) => s.trim() === "Playing")
-        return {
-          label: text.length > 45 ? text.slice(0, 45) + "…" : text,
-          playing: false,
-        }
-      }),
+    () => mpris.players.length,
   )
 
+  // Get first player info if available
+  const hasPlayer = playerCount((c) => c > 0)
+
+  const info = createPoll<{ label: string; playing: boolean }>(
+    { label: "—", playing: false },
+    1000,
+    () => {
+      const players = mpris.players
+      if (!players || players.length === 0) {
+        return { label: "—", playing: false }
+      }
+
+      const player = players[0]
+      const artist = player.artist || ""
+      const title = player.title || ""
+      const label =
+        !artist && !title
+          ? "—"
+          : `${artist} — ${title}`.length > 45
+            ? `${artist} — ${title}`.slice(0, 45) + "…"
+            : `${artist} — ${title}`
+
+      const playing =
+        player.playbackStatus === AstalMpris.PlaybackStatus.PLAYING
+
+      return { label, playing }
+    },
+  )
+
+  const label = info((i) => i.label)
+  const playing = info((i) => i.playing)
+
+  const cls = playing((p) => `media${p ? " playing" : " paused"}`)
+
+  function handleClick() {
+    const players = mpris.players
+    if (players.length > 0 && players[0].canControl) {
+      players[0].play_pause()
+    }
+  }
+
   return (
-    <box class="media playing">
+    <button class={cls} onClicked={handleClick}>
       <label label="▶" class="media-icon" />
-      <label label={media((m) => m.label)} class="media-label" />
-    </box>
+      <label label={label} class="media-label" />
+    </button>
   )
 }

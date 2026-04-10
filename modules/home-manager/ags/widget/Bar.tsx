@@ -22,7 +22,7 @@ function Tray() {
         <button
           class="tray-btn"
           onClicked={() => item.activate(0, 0)}
-          tooltipText={item.title || "Tray item"}
+          tooltipText={item.tooltipText || "Tray item"}
         >
           <label label={item.iconName || "●"} />
         </button>
@@ -47,7 +47,6 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
       anchor={TOP | LEFT | RIGHT}
       application={app}
-      heightrequest={40}
     >
       <centerbox class="bar">
         {/* ── Left ── Workspaces + Active window */}

@@ -1,38 +1,39 @@
-import { execAsync } from "ags/process"
+import AstalNetwork from "gi://AstalNetwork?version=0.1"
 import { createPoll } from "ags/time"
 
 export default function Network() {
-  const net = createPoll<{ ssid: string; connected: boolean }>(
-    { ssid: "—", connected: false },
+  const network = AstalNetwork.get_default()
+
+  const wifi = createPoll<{ ssid: string; connected: boolean; icon: string }>(
+    { ssid: "—", connected: false, icon: "睊" },
     5000,
-    () =>
-      execAsync([
-        "bash",
-        "-c",
-        `nmcli -t -f STATE,SSID dev wifi 2>/dev/null | head -1 || echo "disconnected:"`,
-      ]).then((out) => {
-        const line = out.trim()
-        if (line.startsWith("disconnected") || !line) {
-          return { ssid: "—", connected: false }
-        }
-        const parts = line.split(":")
-        return {
-          ssid: parts[1] || parts[0] || "—",
-          connected: true,
-        }
-      }),
+    () => {
+      const wifiObj = network.wifi
+      if (!wifiObj) return { ssid: "—", connected: false, icon: "睊" }
+
+      const connected =
+        network.state === AstalNetwork.State.CONNECTED_GLOBAL ||
+        network.state === AstalNetwork.State.CONNECTED_SITE
+
+      const ssid = wifiObj.ssid || "—"
+      const icon = connected ? "📶" : "睊"
+
+      return { ssid, connected, icon }
+    },
   )
 
+  const icon = wifi((w) => w.icon)
+  const ssid = wifi((w) => w.ssid)
+  const connected = wifi((w) => w.connected)
+
+  const cls = connected((c) => `net-btn${c ? "" : " disconnected"}`)
+
+  const tooltip = connected((c) => (c ? `Connected to ${ssid((s) => s)}` : "Disconnected"))
+
   return (
-    <button
-      class={net((n) => `net-btn ${n.connected ? "" : "disconnected"}`)}
-      tooltipText={net((n) => n.connected ? n.ssid : "Disconnected")}
-    >
-      <label
-        label={net((n) => (n.connected ? "📶" : "睊"))}
-        class="net-icon"
-      />
-      <label label={net((n) => n.ssid)} class="net-name" />
+    <button class={cls} tooltipText={tooltip}>
+      <label label={icon} class="net-icon" />
+      <label label={ssid} class="net-name" />
     </button>
   )
 }

@@ -18,7 +18,7 @@ function WorkspaceButton({ id }: { id: number }) {
         "hyprctl workspaces -j 2>/dev/null || echo '[]'",
       ]).then((out) => {
         try {
-          const parsed = JSON.parse(out.trim()) as HyprWorkspace[]
+          const parsed = JSON.parse(out.trim())
           return Array.isArray(parsed) ? parsed : []
         } catch {
           return [] as HyprWorkspace[]
@@ -35,30 +35,76 @@ function WorkspaceButton({ id }: { id: number }) {
         "-c",
         "hyprctl activeworkspace -j 2>/dev/null | grep -o '\"id\":[0-9]*' | grep -o '[0-9]*' || echo '0'",
       ]).then((out) => {
-        const id = parseInt(out.trim(), 10)
-        return isNaN(id) ? 0 : id
+        const n = parseInt(out.trim(), 10)
+        return isNaN(n) ? 0 : n
       }),
   )
 
-  // Compute class from within accessor subscriptions
-  const cls = workspaces((list) => {
-    const isOccupied = list.some((w) => w.id === id)
-    const isActive = focusedId((fid) => fid === id)
-    if (isActive) return isOccupied ? "ws-btn active occupied" : "ws-btn active"
-    if (isOccupied) return "ws-btn occupied"
-    return "ws-btn"
-  })
+  // Compute class by subscribing to both accessors
+  // The button re-renders when workspaces OR focusedId changes
+  function getClass(): string {
+    let occupied = false
+    let active = false
 
-  const tooltip = workspaces((list) => {
-    const ws = list.find((w) => w.id === id)
-    return ws ? `${id} — ${ws.windows} window(s)` : `Workspace ${id}`
-  })
+    // Subscribe to workspaces
+    workspaces((list) => {
+      occupied = list.some((w: HyprWorkspace) => w.id === id)
+    })
+
+    // Subscribe to focusedId
+    focusedId((fid) => {
+      active = fid === id
+    })
+
+    const cls = `ws-btn${active ? " active" : ""}${occupied ? " occupied" : ""}`
+    return cls
+  }
+
+  const cls = createPoll<string>(
+    "ws-btn",
+    500,
+    () => {
+      let occupied = false
+      let active = false
+
+      // Subscribe to both within the poll callback
+      // This works because createPoll re-runs when any subscribed accessor changes
+      workspaces((list) => {
+        occupied = list.some((w: HyprWorkspace) => w.id === id)
+      })
+
+      focusedId((fid) => {
+        active = fid === id
+      })
+
+      return `ws-btn${active ? " active" : ""}${occupied ? " occupied" : ""}`
+    },
+  )
+
+  const tooltip = createPoll<string>(
+    `Workspace ${id}`,
+    500,
+    () => {
+      let tip = `Workspace ${id}`
+      workspaces((list) => {
+        const ws = list.find((w: HyprWorkspace) => w.id === id)
+        if (ws) {
+          tip = `Workspace ${id} — ${ws.windows} window(s)`
+        }
+      })
+      return tip
+    },
+  )
+
+  function handleClick() {
+    execAsync(["bash", "-c", `hyprctl dispatch workspace ${id}`])
+  }
 
   return (
     <button
-      class={cls}
-      onClicked={() => execAsync(["bash", "-c", `hyprctl dispatch workspace ${id}`])}
-      tooltipText={tooltip}
+      class={cls((c) => c)}
+      onClicked={handleClick}
+      tooltipText={tooltip((t) => t)}
     >
       <label label={String(id)} class="ws-num" />
     </button>

@@ -43,9 +43,9 @@ window.Bar {
     padding: 0 6px;
     border-radius: 0;
     min-width: 28px;
-    // cursor: pointer via all:unset default
     font-size: 12px;
     font-weight: 600;
+    cursor: pointer;
 
     &:hover {
       background: $bg-surface;
@@ -171,7 +171,8 @@ window.Bar {
   }
 
   &.low {
-    .bat-icon, .bat-pct {
+    .bat-icon,
+    .bat-pct {
       color: $danger;
     }
   }

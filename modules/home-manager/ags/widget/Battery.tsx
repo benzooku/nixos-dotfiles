@@ -1,52 +1,62 @@
-import { execAsync } from "ags/process"
+import AstalBattery from "gi://AstalBattery?version=0.1"
 import { createPoll } from "ags/time"
 
-function batteryIcon(pct: number, charging: boolean): string {
-  if (charging) return "⚡"
-  if (pct >= 90) return "󰁹"
-  if (pct >= 80) return "󰁿"
-  if (pct >= 70) return "󰁾"
-  if (pct >= 60) return "󰁽"
-  if (pct >= 50) return "󰁼"
-  if (pct >= 40) return "󰁻"
-  if (pct >= 30) return "󰁺"
-  if (pct >= 20) return "󰁹"
-  if (pct >= 10) return "󰂎"
-  return "󰂎"
-}
-
 export default function Battery() {
-  const bat = createPoll<{ pct: number; charging: boolean }>(
-    { pct: 0, charging: false },
+  const battery = createPoll<{ pct: number; charging: boolean; icon: string }>(
+    { pct: 0, charging: false, icon: "󰂎" },
     30000,
-    () =>
-      execAsync([
-        "bash",
-        "-c",
-        "cat /sys/class/power_supply/BAT0/capacity 2>/dev/null || echo '0'",
-      ]).then((out) => {
-        const pct = parseInt(out.trim(), 10)
-        const charging = execAsync([
-          "bash",
-          "-c",
-          "cat /sys/class/power_supply/BAT0/status 2>/dev/null || echo 'Unknown'",
-        ]).then((s) => s.trim() === "Charging")
-        return {
-          pct: isNaN(pct) ? 0 : pct,
-          charging: false,
-        }
-      }),
+    () => {
+      const device = AstalBattery.get_default()
+      if (!device) return { pct: 0, charging: false, icon: "󰂎" }
+
+      const pct = Math.round(device.percentage * 100)
+      const charging = device.charging
+
+      let icon: string
+      if (charging) {
+        icon = "⚡"
+      } else if (pct >= 90) {
+        icon = "󰁹"
+      } else if (pct >= 80) {
+        icon = "󰁿"
+      } else if (pct >= 70) {
+        icon = "󰁾"
+      } else if (pct >= 60) {
+        icon = "󰁽"
+      } else if (pct >= 50) {
+        icon = "󰁼"
+      } else if (pct >= 40) {
+        icon = "󰁻"
+      } else if (pct >= 30) {
+        icon = "󰁺"
+      } else if (pct >= 20) {
+        icon = "󰁹"
+      } else if (pct >= 10) {
+        icon = "󰂎"
+      } else {
+        icon = "󰂎"
+      }
+
+      return { pct, charging, icon }
+    },
+  )
+
+  const pct = battery((b) => `${b.pct}%`)
+  const icon = battery((b) => b.icon)
+  const charging = battery((b) => b.charging)
+
+  const cls = battery(
+    (b) => `bat-btn${b.pct < 20 && !b.charging ? " low" : ""}${b.charging ? " charging" : ""}`,
+  )
+
+  const tooltip = battery(
+    (b) => `Battery: ${b.pct}%${b.charging ? " (charging)" : ""}`,
   )
 
   return (
-    <button
-      class={bat((b) =>
-        `bat-btn ${b.pct < 20 && !b.charging ? "low" : ""} ${b.charging ? "charging" : ""}`
-      )}
-      tooltipText={bat((b) => `${b.pct}%${b.charging ? " (charging)" : ""}`)}
-    >
-      <label label={bat((b) => batteryIcon(b.pct, b.charging))} class="bat-icon" />
-      <label label={bat((b) => `${b.pct}%`)} class="bat-pct" />
+    <button class={cls} tooltipText={tooltip}>
+      <label label={icon} class="bat-icon" />
+      <label label={pct} class="bat-pct" />
     </button>
   )
 }
