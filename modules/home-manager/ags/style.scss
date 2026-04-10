@@ -22,6 +22,11 @@ window {
   background: transparent;
 }
 
+window.Bar {
+  min-height: 40px;
+  background: $bg-deep;
+}
+
 // ── Bar ──────────────────────────────────────────────────────
 .bar {
   // spacing handled via widget props, not CSS

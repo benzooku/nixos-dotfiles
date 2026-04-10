@@ -37,6 +37,7 @@ function Sep() {
       class="sep"
       halign={Gtk.Align.CENTER}
       valign={Gtk.Align.FILL}
+      widthrequest={1}
     />
   )
 }
@@ -53,22 +54,23 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
       anchor={TOP | LEFT | RIGHT}
       application={app}
+      heightrequest={40}
     >
       <centerbox class="bar">
         {/* ── Left ── Workspaces + Active window */}
-        <box halign={Gtk.Align.START} class="bar-left">
+        <box halign={Gtk.Align.START} class="bar-left" hexpand>
           <Workspaces />
           <Sep />
           <ActiveWindow />
         </box>
 
         {/* ── Center ── Media player */}
-        <box halign={Gtk.Align.CENTER} class="bar-center">
+        <box halign={Gtk.Align.CENTER} class="bar-center" hexpand>
           <Media />
         </box>
 
         {/* ── Right ── System indicators + Tray + Clock */}
-        <box halign={Gtk.Align.END} class="bar-right">
+        <box halign={Gtk.Align.END} class="bar-right" hexpand>
           <SysIndicators />
           <Volume />
           <Network />
