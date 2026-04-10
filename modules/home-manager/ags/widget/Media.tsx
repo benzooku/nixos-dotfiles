@@ -71,7 +71,7 @@ export default function Media() {
   return (
     <button class={cls} onClicked={handleClick} tooltipText={tooltip}>
       <label label={icon} class="media-icon" />
-      <label label={label} class="media-label" />
+      <label label={label} class="media-label" widthChars={25} wrap={false} />
     </button>
   )
 }

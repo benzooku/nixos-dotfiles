@@ -35,7 +35,7 @@ export default function Network() {
   return (
     <button class={cls} tooltipText={tooltip}>
       <label label={icon} class="net-icon" />
-      <label label={ssid} class="net-name" />
+      <label label={ssid} class="net-name" widthChars={15} wrap={false} />
     </button>
   )
 }
