@@ -31,6 +31,16 @@ function Tray() {
   )
 }
 
+function Sep() {
+  return (
+    <box
+      class="sep"
+      halign={Gtk.Align.CENTER}
+      valign={Gtk.Align.FILL}
+    />
+  )
+}
+
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
 
@@ -48,7 +58,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
         {/* ── Left ── Workspaces + Active window */}
         <box halign={Gtk.Align.START} class="bar-left">
           <Workspaces />
-          <separator direction={Gtk.Orientation.VERTICAL} class="sep" />
+          <Sep />
           <ActiveWindow />
         </box>
 
@@ -64,7 +74,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
           <Network />
           <Battery />
           <Tray />
-          <separator direction={Gtk.Orientation.VERTICAL} class="sep" />
+          <Sep />
           <Clock />
         </box>
       </centerbox>
