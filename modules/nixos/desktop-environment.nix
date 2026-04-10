@@ -33,7 +33,9 @@
         teamspeak6-client
 
         # DE
-        hyprpanel
+        ags
+        mako
+        starship
         kitty
         networkmanagerapplet
         cliphist
