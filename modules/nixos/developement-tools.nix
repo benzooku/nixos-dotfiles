@@ -31,6 +31,8 @@
       inetutils
       nodejs_20
       ripgrep
+
+      android-tools
       ];
 
 # KVM
