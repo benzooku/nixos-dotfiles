@@ -1,10 +1,37 @@
-import app from "ags/gtk4/app"
 import { Astal, Gtk, Gdk } from "ags/gtk4"
-import { execAsync } from "ags/process"
-import { createPoll } from "ags/time"
+import AstalTray from "gi://AstalTray?version=0.1"
+import app from "ags/gtk4/app"
+import Workspaces from "./Workspaces"
+import ActiveWindow from "./ActiveWindow"
+import Media from "./Media"
+import Volume from "./Volume"
+import Network from "./Network"
+import Battery from "./Battery"
+import SysIndicators from "./SysIndicators"
+import Clock from "./Clock"
+
+function Tray() {
+  const tray = AstalTray.Tray.get_default()
+  const items = tray.items
+
+  if (items.length === 0) return <box />
+
+  return (
+    <box class="tray-box" spacing={4}>
+      {items.map((item) => (
+        <button
+          class="tray-btn"
+          onClick={() => item.activate(0, 0)}
+          tooltipText={item.title || "Tray item"}
+        >
+          <label label={item.iconName || "●"} />
+        </button>
+      ))}
+    </box>
+  )
+}
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
-  const time = createPoll("", 1000, "date")
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
 
   return (
@@ -17,22 +44,29 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       anchor={TOP | LEFT | RIGHT}
       application={app}
     >
-      <centerbox cssName="centerbox">
-        <button
-          $type="start"
-          onClicked={() => execAsync("echo hello").then(console.log)}
-          hexpand
-          halign={Gtk.Align.CENTER}
-        >
-          <label label="Welcome to AGS!" />
-        </button>
-        <box $type="center" />
-        <menubutton $type="end" hexpand halign={Gtk.Align.CENTER}>
-          <label label={time} />
-          <popover>
-            <Gtk.Calendar />
-          </popover>
-        </menubutton>
+      <centerbox class="bar">
+        {/* ── Left ── Workspaces + Active window */}
+        <box halign={Gtk.Align.START} class="bar-left">
+          <Workspaces />
+          <separator direction={Gtk.Orientation.VERTICAL} class="sep" />
+          <ActiveWindow />
+        </box>
+
+        {/* ── Center ── Media player */}
+        <box halign={Gtk.Align.CENTER} class="bar-center">
+          <Media />
+        </box>
+
+        {/* ── Right ── System indicators + Tray + Clock */}
+        <box halign={Gtk.Align.END} class="bar-right">
+          <SysIndicators />
+          <Volume />
+          <Network />
+          <Battery />
+          <Tray />
+          <separator direction={Gtk.Orientation.VERTICAL} class="sep" />
+          <Clock />
+        </box>
       </centerbox>
     </window>
   )
