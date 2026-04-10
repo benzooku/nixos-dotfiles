@@ -230,6 +230,7 @@ window.Bar {
 .sep {
   background: $border;
   margin: 6px 4px;
+  min-width: 1px;
 }
 
 // ── Tooltips ────────────────────────────────────────────────

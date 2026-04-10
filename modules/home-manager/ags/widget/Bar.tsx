@@ -32,14 +32,7 @@ function Tray() {
 }
 
 function Sep() {
-  return (
-    <box
-      class="sep"
-      halign={Gtk.Align.CENTER}
-      valign={Gtk.Align.FILL}
-      widthrequest={1}
-    />
-  )
+  return <box class="sep" valign={Gtk.Align.FILL} />
 }
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
