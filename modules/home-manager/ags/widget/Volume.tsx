@@ -24,16 +24,20 @@ export default function Volume() {
       ]).then((out) => out.trim()),
   )
 
-  const icon = muted((m) => (m ? "婢" : "🔊"))
+  const icon = muted((m) => (m ? "🔇" : "🔊"))
 
   const cls = muted((m) => `volume-btn${m ? " muted" : ""}`)
+
+  const tooltip = muted(
+    (m) => (m ? `Volume: ${pct.get()} (muted)` : `Volume: ${pct.get()}`),
+  )
 
   function handleClick() {
     execAsync(["wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle"])
   }
 
   return (
-    <button class={cls} onClicked={handleClick}>
+    <button class={cls} onClicked={handleClick} tooltipText={tooltip}>
       <label label={icon} class="vol-icon" />
       <label label={pct} class="vol-pct" />
     </button>

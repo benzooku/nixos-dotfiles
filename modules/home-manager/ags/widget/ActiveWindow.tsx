@@ -3,6 +3,8 @@ import Pango from "gi://Pango?version=1.0"
 import { execAsync } from "ags/process"
 import { createPoll } from "ags/time"
 
+const MAX_TITLE_LENGTH = 45
+
 export default function ActiveWindow() {
   const title = createPoll<string>(
     "",
@@ -17,11 +19,11 @@ export default function ActiveWindow() {
 
   const displayTitle = title((t) => {
     if (!t) return "—"
-    return t.length > 45 ? t.slice(0, 45) + "…" : t
+    return t.length > MAX_TITLE_LENGTH ? t.slice(0, MAX_TITLE_LENGTH) + "…" : t
   })
 
   return (
-    <box class="active-window">
+    <box class="active-window" hexpand>
       <label
         label={displayTitle}
         class="window-title"

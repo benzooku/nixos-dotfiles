@@ -1,8 +1,10 @@
 # AGS — custom bar/widget system
-# Replaces hyprpanel
-# Uses AGS v2 home-manager module
+# Built from scratch 2026-04-10
 { inputs, config, lib, pkgs, ags, astal, ... }:
 
+let
+  system = pkgs.stdenv.hostPlatform.system;
+in
 {
   imports = [ ags.homeManagerModules.default ];
 
@@ -10,11 +12,12 @@
     enable = true;
     configDir = ./ags;
     extraPackages = with pkgs; [
-      astal.packages.${pkgs.stdenv.hostPlatform.system}.battery
-      astal.packages.${pkgs.stdenv.hostPlatform.system}.mpris
-      astal.packages.${pkgs.stdenv.hostPlatform.system}.network
-      astal.packages.${pkgs.stdenv.hostPlatform.system}.tray
-      astal.packages.${pkgs.stdenv.hostPlatform.system}.hyprland
+      astal.packages.${system}.battery
+      astal.packages.${system}.mpris
+      astal.packages.${system}.network
+      astal.packages.${system}.tray
+      astal.packages.${system}.hyprland
+      astal.packages.${system}.wireplumber  # for volume/audio
     ];
   };
 }

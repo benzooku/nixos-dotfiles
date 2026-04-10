@@ -28,7 +28,9 @@ export default function Network() {
 
   const cls = connected((c) => `net-btn${c ? "" : " disconnected"}`)
 
-  const tooltip = connected((c) => (c ? `Connected to ${ssid((s) => s)}` : "Disconnected"))
+  const tooltip = connected((c) =>
+    c ? `Connected to ${ssid((s) => s)}` : "Disconnected",
+  )
 
   return (
     <button class={cls} tooltipText={tooltip}>

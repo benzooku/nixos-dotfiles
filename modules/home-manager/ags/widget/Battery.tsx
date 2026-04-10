@@ -15,26 +15,26 @@ export default function Battery() {
       let icon: string
       if (charging) {
         icon = "⚡"
-      } else if (pct >= 90) {
+      } else if (pct >= 95) {
         icon = "󰁹"
-      } else if (pct >= 80) {
+      } else if (pct >= 85) {
         icon = "󰁿"
-      } else if (pct >= 70) {
+      } else if (pct >= 75) {
         icon = "󰁾"
-      } else if (pct >= 60) {
+      } else if (pct >= 65) {
         icon = "󰁽"
-      } else if (pct >= 50) {
+      } else if (pct >= 55) {
         icon = "󰁼"
-      } else if (pct >= 40) {
+      } else if (pct >= 45) {
         icon = "󰁻"
-      } else if (pct >= 30) {
+      } else if (pct >= 35) {
         icon = "󰁺"
-      } else if (pct >= 20) {
+      } else if (pct >= 25) {
         icon = "󰁹"
-      } else if (pct >= 10) {
+      } else if (pct >= 15) {
         icon = "󰂎"
       } else {
-        icon = "󰂎"
+        icon = "󰂃"
       }
 
       return { pct, charging, icon }
@@ -46,7 +46,8 @@ export default function Battery() {
   const charging = battery((b) => b.charging)
 
   const cls = battery(
-    (b) => `bat-btn${b.pct < 20 && !b.charging ? " low" : ""}${b.charging ? " charging" : ""}`,
+    (b) =>
+      `bat-btn${b.pct < 20 && !b.charging ? " low" : ""}${b.charging ? " charging" : ""}`,
   )
 
   const tooltip = battery(

@@ -7,28 +7,27 @@ interface HyprWorkspace {
   windows: number
 }
 
-function WorkspaceButton({ id }: { id: number }) {
+const MAX_WORKSPACES = 10
+
+export default function Workspaces() {
   const workspaces = createPoll<HyprWorkspace[]>(
     [],
-    500,
+    300,
     () =>
-      execAsync([
-        "bash",
-        "-c",
-        "hyprctl workspaces -j 2>/dev/null || echo '[]'",
-      ]).then((out) => {
-        try {
-          const parsed = JSON.parse(out.trim())
-          return Array.isArray(parsed) ? parsed : []
-        } catch {
-          return [] as HyprWorkspace[]
-        }
-      }),
+      execAsync(["bash", "-c", "hyprctl workspaces -j 2>/dev/null"])
+        .then((out) => {
+          try {
+            const parsed = JSON.parse(out.trim())
+            return Array.isArray(parsed) ? parsed : []
+          } catch {
+            return []
+          }
+        }),
   )
 
   const focusedId = createPoll<number>(
     0,
-    500,
+    300,
     () =>
       execAsync([
         "bash",
@@ -40,83 +39,50 @@ function WorkspaceButton({ id }: { id: number }) {
       }),
   )
 
-  // Compute class by subscribing to both accessors
-  // The button re-renders when workspaces OR focusedId changes
-  function getClass(): string {
-    let occupied = false
-    let active = false
-
-    // Subscribe to workspaces
-    workspaces((list) => {
-      occupied = list.some((w: HyprWorkspace) => w.id === id)
-    })
-
-    // Subscribe to focusedId
-    focusedId((fid) => {
-      active = fid === id
-    })
-
-    const cls = `ws-btn${active ? " active" : ""}${occupied ? " occupied" : ""}`
-    return cls
+  function handleClick(id: number) {
+    execAsync(["hyprctl", "dispatch", "workspace", String(id)])
   }
 
-  const cls = createPoll<string>(
-    "ws-btn",
-    500,
-    () => {
-      let occupied = false
-      let active = false
+  const buttons = Array.from({ length: MAX_WORKSPACES }, (_, i) => {
+    const id = i + 1
 
-      // Subscribe to both within the poll callback
-      // This works because createPoll re-runs when any subscribed accessor changes
-      workspaces((list) => {
-        occupied = list.some((w: HyprWorkspace) => w.id === id)
-      })
+    // Reactive class based on both workspaces list and focused id
+    const cls = createPoll<string>(
+      "ws-btn",
+      300,
+      () => {
+        const list = workspaces.get()
+        const fid = focusedId.get()
+        const occupied = list.some((w: HyprWorkspace) => w.id === id)
+        const active = fid === id
+        return `ws-btn${active ? " active" : ""}${occupied ? " occupied" : ""}`
+      },
+    )
 
-      focusedId((fid) => {
-        active = fid === id
-      })
-
-      return `ws-btn${active ? " active" : ""}${occupied ? " occupied" : ""}`
-    },
-  )
-
-  const tooltip = createPoll<string>(
-    `Workspace ${id}`,
-    500,
-    () => {
-      let tip = `Workspace ${id}`
-      workspaces((list) => {
+    const tooltip = createPoll<string>(
+      `Workspace ${id}`,
+      300,
+      () => {
+        const list = workspaces.get()
         const ws = list.find((w: HyprWorkspace) => w.id === id)
-        if (ws) {
-          tip = `Workspace ${id} — ${ws.windows} window(s)`
-        }
-      })
-      return tip
-    },
-  )
+        return ws ? `Workspace ${id} — ${ws.windows} window(s)` : `Workspace ${id}`
+      },
+    )
 
-  function handleClick() {
-    execAsync(["bash", "-c", `hyprctl dispatch workspace ${id}`])
-  }
+    return (
+      <button
+        class={cls}
+        onClicked={() => handleClick(id)}
+        tooltipText={tooltip}
+      >
+        <label label={String(id)} class="ws-num" />
+      </button>
+    )
+  })
 
-  return (
-    <button
-      class={cls((c) => c)}
-      onClicked={handleClick}
-      tooltipText={tooltip((t) => t)}
-    >
-      <label label={String(id)} class="ws-num" />
-    </button>
-  )
-}
-
-export default function Workspaces() {
   return (
     <box class="workspaces" spacing={2}>
-      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
-        <WorkspaceButton id={n} key={n} />
-      ))}
+      {buttons}
     </box>
   )
 }

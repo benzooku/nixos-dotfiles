@@ -1,30 +1,38 @@
+// =============================================================================
+// DELTA-STYLE BAR — SCSS
+// A clean, modern dark bar inspired by GitHub's dark palette
+// =============================================================================
+
 * {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 13px;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-size: 12px;
   color: #e6edf3;
 }
 
+// =============================================================================
+// WINDOW / BAR
+// =============================================================================
+
 .Bar {
-  min-height: 40px;
   background: #0d1117;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .bar {
-  background: #0d1117;
+  background: transparent;
+  padding: 0;
 }
 
 .bar-left,
 .bar-center,
 .bar-right {
   padding: 0 8px;
+  min-height: 40px;
 }
 
-.ws-label,
-.media-label,
-.sys-label {
-  color: #e6edf3;
-  font-size: 12px;
-}
+// =============================================================================
+// SEPARATOR
+// =============================================================================
 
 .sep {
   background: #30363d;
@@ -32,11 +40,305 @@
   margin: 6px 4px;
 }
 
+// =============================================================================
+// WORKSACES
+// =============================================================================
+
+.workspaces {
+  padding: 4px 6px;
+}
+
+.ws-btn {
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  min-width: 28px;
+  color: #8b949e;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: #161b22;
+    color: #c9d1d9;
+  }
+
+  &.active {
+    background: #238636;
+    color: #ffffff;
+
+    &:hover {
+      background: #2ea043;
+    }
+  }
+
+  &.occupied:not(.active) {
+    color: #c9d1d9;
+    background: #161b22;
+  }
+
+  .ws-num {
+    font-size: 11px;
+    font-weight: 600;
+  }
+}
+
+// =============================================================================
+// ACTIVE WINDOW
+// =============================================================================
+
+.active-window {
+  padding: 0 12px;
+  min-height: 40px;
+
+  .window-title {
+    color: #8b949e;
+    font-size: 11px;
+    font-style: italic;
+    ellipsize: end;
+  }
+}
+
+// =============================================================================
+// MEDIA PLAYER
+// =============================================================================
+
+.media-btn {
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: #161b22;
+  }
+
+  &.hidden {
+    .media-icon,
+    .media-label {
+      opacity: 0.3;
+    }
+  }
+
+  &.playing {
+    .media-icon {
+      color: #3fb950;
+    }
+    .media-label {
+      color: #c9d1d9;
+    }
+  }
+
+  &.paused {
+    .media-icon {
+      color: #8b949e;
+    }
+    .media-label {
+      color: #8b949e;
+    }
+  }
+
+  .media-icon {
+    font-size: 10px;
+    margin-right: 6px;
+  }
+
+  .media-label {
+    font-size: 11px;
+    max-width: 180px;
+    ellipsize: end;
+  }
+}
+
+// =============================================================================
+// VOLUME
+// =============================================================================
+
+.volume-btn {
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: #161b22;
+  }
+
+  &.muted {
+    .vol-icon {
+      color: #f85149;
+    }
+    .vol-pct {
+      color: #8b949e;
+    }
+  }
+
+  .vol-icon {
+    font-size: 13px;
+    margin-right: 4px;
+  }
+
+  .vol-pct {
+    font-size: 11px;
+    color: #c9d1d9;
+  }
+}
+
+// =============================================================================
+// NETWORK
+// =============================================================================
+
+.net-btn {
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: #161b22;
+  }
+
+  &.disconnected {
+    .net-icon {
+      color: #f85149;
+    }
+    .net-name {
+      color: #8b949e;
+    }
+  }
+
+  .net-icon {
+    font-size: 13px;
+    margin-right: 4px;
+  }
+
+  .net-name {
+    font-size: 11px;
+    color: #c9d1d9;
+    max-width: 120px;
+    ellipsize: end;
+  }
+}
+
+// =============================================================================
+// BATTERY
+// =============================================================================
+
+.bat-btn {
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: #161b22;
+  }
+
+  &.low {
+    .bat-icon {
+      color: #f85149;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    .bat-pct {
+      color: #f85149;
+    }
+  }
+
+  &.charging {
+    .bat-icon {
+      color: #3fb950;
+    }
+    .bat-pct {
+      color: #3fb950;
+    }
+  }
+
+  .bat-icon {
+    font-size: 13px;
+    margin-right: 4px;
+  }
+
+  .bat-pct {
+    font-size: 11px;
+    color: #c9d1d9;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+// =============================================================================
+// CLOCK
+// =============================================================================
+
+.clock-btn {
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: #161b22;
+  }
+
+  .clock-label {
+    font-size: 11px;
+    color: #c9d1d9;
+    letter-spacing: 0.3px;
+  }
+}
+
+// =============================================================================
+// SYSTEM INDICATORS (shared row)
+// =============================================================================
+
+.bar-right {
+  .media-btn,
+  .volume-btn,
+  .net-btn,
+  .bat-btn,
+  .clock-btn {
+    margin: 0 1px;
+  }
+}
+
+// =============================================================================
+// TOOLTIPS
+// =============================================================================
+
 tooltip {
   background: #161b22;
   color: #e6edf3;
   border: 1px solid #30363d;
   border-radius: 6px;
   padding: 6px 10px;
-  font-size: 12px;
+  font-size: 11px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+// =============================================================================
+// BUTTON RESET (global)
+// =============================================================================
+
+button {
+  all: unset;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+// =============================================================================
+// LABELS (global reset)
+// =============================================================================
+
+label {
+  all: unset;
 }

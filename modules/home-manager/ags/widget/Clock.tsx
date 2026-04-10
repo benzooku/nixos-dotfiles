@@ -9,7 +9,7 @@ export default function Clock() {
       execAsync([
         "bash",
         "-c",
-        "date '+%H:%M  •  %a %d %b'",
+        "date '+%H:%M  ·  %a %d %b'",
       ]).then((out) => out.trim()),
   )
 

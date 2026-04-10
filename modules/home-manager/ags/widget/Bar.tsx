@@ -1,9 +1,12 @@
 import { Astal, Gtk, Gdk } from "ags/gtk4"
 import app from "ags/gtk4/app"
-
-function Sep() {
-  return <box class="sep" valign={Gtk.Align.FILL} />
-}
+import Workspaces from "./Workspaces"
+import ActiveWindow from "./ActiveWindow"
+import Media from "./Media"
+import Volume from "./Volume"
+import Network from "./Network"
+import Battery from "./Battery"
+import Clock from "./Clock"
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
@@ -18,17 +21,26 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       anchor={TOP | LEFT | RIGHT}
       application={app}
     >
-      <centerbox class="bar">
-        <box halign={Gtk.Align.START} class="bar-left" hexpand>
-          <label label="1 2 3 4 5 6 7 8 9 10" class="ws-label" />
+      <box class="bar">
+        {/* Left: Workspaces */}
+        <box hexpand halign={Gtk.Align.START} class="bar-left">
+          <Workspaces />
         </box>
-        <box halign={Gtk.Align.CENTER} class="bar-center" hexpand>
-          <label label="Media Player" class="media-label" />
+
+        {/* Center: Active window title */}
+        <box hexpand halign={Gtk.Align.CENTER} class="bar-center">
+          <ActiveWindow />
         </box>
-        <box halign={Gtk.Align.END} class="bar-right" hexpand>
-          <label label="Vol  Net  Bat  Clock" class="sys-label" />
+
+        {/* Right: System indicators */}
+        <box hexpand halign={Gtk.Align.END} class="bar-right">
+          <Media />
+          <Volume />
+          <Network />
+          <Battery />
+          <Clock />
         </box>
-      </centerbox>
+      </box>
     </window>
   )
 }
