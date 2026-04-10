@@ -14,6 +14,7 @@
       astal.packages.${pkgs.stdenv.hostPlatform.system}.mpris
       astal.packages.${pkgs.stdenv.hostPlatform.system}.network
       astal.packages.${pkgs.stdenv.hostPlatform.system}.tray
+      astal.packages.${pkgs.stdenv.hostPlatform.system}.hyprland
     ];
   };
 }

@@ -64,7 +64,7 @@ export default function Workspaces() {
         return (
           <button
             class={`ws-btn ${active ? "active" : ""} ${occupied && !active ? "occupied" : ""}`}
-            onClick={() =>
+            onClicked={() =>
               execAsync(["bash", "-c", `hyprctl dispatch workspace ${wsId}`])
             }
             tooltipText={

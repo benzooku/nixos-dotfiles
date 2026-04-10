@@ -21,7 +21,7 @@ function Tray() {
       {items.map((item) => (
         <button
           class="tray-btn"
-          onClick={() => item.activate(0, 0)}
+          onClicked={() => item.activate(0, 0)}
           tooltipText={item.title || "Tray item"}
         >
           <label label={item.iconName || "●"} />

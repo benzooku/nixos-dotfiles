@@ -24,38 +24,23 @@ window {
 
 // ── Bar ──────────────────────────────────────────────────────
 .bar {
-  padding: 0 8px;
-
-  .bar-left {
-    padding: 0 4px;
-  }
-
-  .bar-center {
-    padding: 0 8px;
-  }
-
-  .bar-right {
-    padding: 0 4px;
-  }
+  // spacing handled via widget props, not CSS
 }
 
 // ── Workspaces ───────────────────────────────────────────────
 .workspaces {
-  spacing: 2px;
+  // spacing via widget spacing={2}
 
   .ws-btn {
     all: unset;
     color: $text-dim;
-    border: none;
     border-bottom: 2px solid transparent;
-    border-radius: 0;
     padding: 0 6px;
+    border-radius: 0;
     min-width: 28px;
-    height: 36px;
-    cursor: pointer;
+    // cursor: pointer via all:unset default
     font-size: 12px;
     font-weight: 600;
-    transition: all 0.15s ease;
 
     &:hover {
       background: $bg-surface;
@@ -70,13 +55,18 @@ window {
     &.occupied {
       color: $text;
     }
+  }
 
-    .ws-dot {
-      background: $accent-subtle;
-      border-radius: 50%;
-      min-width: 5px;
-      min-height: 5px;
-    }
+  .ws-dot {
+    background: $accent-subtle;
+    border-radius: 50%;
+    min-width: 5px;
+    min-height: 5px;
+  }
+
+  .ws-num {
+    font-size: 12px;
+    font-weight: 600;
   }
 }
 
@@ -87,7 +77,6 @@ window {
   .window-title {
     color: $text;
     font-size: 12px;
-    max-width: 260px;
   }
 }
 
@@ -96,12 +85,10 @@ window {
   all: unset;
   padding: 4px 10px;
   border-radius: 6px;
-  cursor: pointer;
-  max-width: 240px;
-  transition: background 0.15s ease;
 
-  &:hover {
-    background: $bg-surface;
+  .media-icon {
+    font-size: 13px;
+    margin-right: 6px;
   }
 
   .media-label {
@@ -123,12 +110,6 @@ window {
   all: unset;
   padding: 4px 8px;
   border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.15s ease;
-
-  &:hover {
-    background: $bg-surface;
-  }
 
   .vol-icon {
     color: $accent;
@@ -141,10 +122,8 @@ window {
     margin-left: 4px;
   }
 
-  &.muted {
-    .vol-icon {
-      color: $text-dim;
-    }
+  &.muted .vol-icon {
+    color: $text-dim;
   }
 }
 
@@ -153,12 +132,6 @@ window {
   all: unset;
   padding: 4px 8px;
   border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.15s ease;
-
-  &:hover {
-    background: $bg-surface;
-  }
 
   .net-icon {
     color: $accent;
@@ -169,13 +142,10 @@ window {
     color: $text-dim;
     font-size: 11px;
     margin-left: 4px;
-    max-width: 90px;
   }
 
-  &.disconnected {
-    .net-icon {
-      color: $text-dim;
-    }
+  &.disconnected .net-icon {
+    color: $text-dim;
   }
 }
 
@@ -184,12 +154,6 @@ window {
   all: unset;
   padding: 4px 8px;
   border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.15s ease;
-
-  &:hover {
-    background: $bg-surface;
-  }
 
   .bat-icon {
     font-size: 14px;
@@ -207,21 +171,18 @@ window {
     }
   }
 
-  &.charging {
-    .bat-icon {
-      color: $success;
-    }
+  &.charging .bat-icon {
+    color: $success;
   }
 }
 
 // ── Sys Indicators ───────────────────────────────────────────
 .sys-indicators {
-  spacing: 8px;
+  // spacing via widget spacing={6}
 
   .sys-item {
     padding: 4px 6px;
     border-radius: 6px;
-    spacing: 4px;
 
     .sys-icon {
       color: $text-dim;
@@ -231,6 +192,7 @@ window {
     .sys-val {
       color: $text-dim;
       font-size: 11px;
+      margin-left: 2px;
     }
   }
 }
@@ -240,12 +202,6 @@ window {
   all: unset;
   padding: 4px 10px;
   border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.15s ease;
-
-  &:hover {
-    background: $bg-surface;
-  }
 
   .clock-label {
     color: $text-dim;
@@ -254,16 +210,21 @@ window {
 }
 
 // ── Tray ────────────────────────────────────────────────────
-.tray-item {
-  padding: 0 4px;
+.tray-box {
+  // spacing via widget spacing={4}
+
+  .tray-btn {
+    all: unset;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
 }
 
 // ── Separator ───────────────────────────────────────────────
 .sep {
   background: $border;
-  width: 1px;
   margin: 6px 4px;
-  border-radius: 1px;
 }
 
 // ── Tooltips ────────────────────────────────────────────────

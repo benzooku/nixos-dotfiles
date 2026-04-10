@@ -22,7 +22,7 @@ export default function Media() {
   return (
     <button
       class={`media ${playing ? "playing" : "paused"}`}
-      onClick={() => player.play_pause()}
+      onClicked={() => player.play_pause()}
     >
       <label label={playing ? "▶" : "⏸"} class="media-icon" />
       <label label={label} class="media-label" truncate />
