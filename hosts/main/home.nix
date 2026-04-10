@@ -12,6 +12,7 @@
       ./../../modules/home-manager/starship.nix
       ./../../modules/home-manager/device.nix
       ./../../modules/home-manager/wofi.nix
+      ./../../modules/home-manager/ags.nix
     ];
 # Home Manager needs a bit of information about you and the paths it should
 # manage.
