@@ -7,8 +7,7 @@ interface HyprWorkspace {
   windows: number
 }
 
-export default function Workspaces() {
-  // Poll workspace list from Hyprland
+function WorkspaceButton({ id }: { id: number }) {
   const workspaces = createPoll<HyprWorkspace[]>(
     [],
     500,
@@ -27,7 +26,6 @@ export default function Workspaces() {
       }),
   )
 
-  // Poll focused workspace id
   const focusedId = createPoll<number>(
     0,
     500,
@@ -42,41 +40,37 @@ export default function Workspaces() {
       }),
   )
 
-  const NUM_WORKSPACES = 10
+  // Compute class from within accessor subscriptions
+  const cls = workspaces((list) => {
+    const isOccupied = list.some((w) => w.id === id)
+    const isActive = focusedId((fid) => fid === id)
+    if (isActive) return isOccupied ? "ws-btn active occupied" : "ws-btn active"
+    if (isOccupied) return "ws-btn occupied"
+    return "ws-btn"
+  })
+
+  const tooltip = workspaces((list) => {
+    const ws = list.find((w) => w.id === id)
+    return ws ? `${id} — ${ws.windows} window(s)` : `Workspace ${id}`
+  })
 
   return (
-    <box class="workspaces" spacing={2}>
-      {Array.from({ length: NUM_WORKSPACES }, (_, i) => i + 1).map((n) => {
-        const wsId = n
+    <button
+      class={cls}
+      onClicked={() => execAsync(["bash", "-c", `hyprctl dispatch workspace ${id}`])}
+      tooltipText={tooltip}
+    >
+      <label label={String(id)} class="ws-num" />
+    </button>
+  )
+}
 
-        return (
-          <button
-            class={workspaces((list) =>
-              focusedId((fid) =>
-                list.some((w) => w.id === wsId)
-                  ? fid === wsId
-                    ? "ws-btn active occupied"
-                    : "ws-btn occupied"
-                  : fid === wsId
-                    ? "ws-btn active"
-                    : "ws-btn"
-              )
-            )}
-            onClicked={() =>
-              execAsync(["bash", "-c", `hyprctl dispatch workspace ${wsId}`])
-            }
-            tooltipText={workspaces((list) => {
-              const ws = list.find((w) => w.id === wsId)
-              return ws ? `${wsId} — ${ws.windows} window(s)` : `Workspace ${wsId}`
-            })}
-          >
-            <label label={String(n)} class="ws-num" />
-            {workspaces((list) => list.some((w) => w.id === wsId) && (
-              <box class="ws-dot" halign={Gtk.Align.END} valign={Gtk.Align.END} />
-            ))}
-          </button>
-        )
-      })}
+export default function Workspaces() {
+  return (
+    <box class="workspaces" spacing={2}>
+      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
+        <WorkspaceButton id={n} key={n} />
+      ))}
     </box>
   )
 }
