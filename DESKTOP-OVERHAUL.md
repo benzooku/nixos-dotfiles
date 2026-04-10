@@ -34,14 +34,16 @@ Deep navy base, bright sky blue accent. Bold contrast, very minimal.
 - [ ] **Notification daemon: Mako** (replaces hyprpanel notifications)
   - Match Azurra colors
   - Configure urgency levels, timeouts, dismiss gestures
-— [ ] hyprlock (keep or replace with AGS lock screen?)
+- [ ] hyprlock (keep or replace with AGS lock screen?)
 - [ ] hyprpaper (wallpaper stays or new?)
 - [ ] GTK theme (match Azurra)
 - [ ] Qt theme (match Azurra)
 - [ ] wofi (keep for app launching or replace with AGS launcher?)
 - [ ] kitty (match Azurra)
 - [ ] Cursor theme (keep Bibata or change?)
-- [ ] Font choices (keep JetBrains Mono?)
+- [ ] **Starship prompt** (replaces powerlevel10k — git status, branch, timing, etc.)
+  - Keep zsh, just swap the prompt
+  - Match Azurra colors in Starship config
 
 ---
 
