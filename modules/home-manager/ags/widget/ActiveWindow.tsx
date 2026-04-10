@@ -1,4 +1,5 @@
 import { Gtk } from "ags/gtk4"
+import Pango from "gi://Pango?version=1.0"
 import { execAsync } from "ags/process"
 import { createPoll } from "ags/time"
 
@@ -24,7 +25,7 @@ export default function ActiveWindow() {
       <label
         label={displayTitle}
         class="window-title"
-        ellipsize={Gtk.EllipsizeMode.END}
+        ellipsize={Pango.EllipsizeMode.END}
       />
     </box>
   )
