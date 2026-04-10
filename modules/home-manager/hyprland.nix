@@ -23,8 +23,8 @@
         enable = true;
 
         theme = {
-            package = pkgs.orchis-theme;
-            name = "Orchis-Purple-Dark";
+            package = pkgs.dracula-theme;
+            name = "Dracula";
         };
 
         iconTheme = {
@@ -40,7 +40,7 @@
 
     qt = {
         enable = true;
-        #platformTheme.name = "gtk";
+        platformTheme.name = "gtk";
     };
 
     wayland.windowManager.hyprland.settings = {

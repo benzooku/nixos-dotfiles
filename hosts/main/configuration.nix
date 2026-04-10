@@ -22,7 +22,7 @@
     };
     boot.loader.grub2-theme = {
         enable = true;
-        theme = "tela";
+        theme = "stylish";
         footer = true;
     };
 
