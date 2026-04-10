@@ -57,7 +57,7 @@
         ];
         exec-once = [ 
             "uwsm app -- hyprpaper"
-            "uwsm app -- ags"
+            "uwsm app -- ags run &" 
             "[workspace 2 silent] uwsm app -- zen"
             "uwsm app -- nm-applet"
             #"uwsm app -- hypridle"
