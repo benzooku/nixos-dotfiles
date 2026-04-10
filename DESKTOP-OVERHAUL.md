@@ -44,6 +44,7 @@ Deep navy base, bright sky blue accent. Bold contrast, very minimal.
 - [ ] **Starship prompt** (replaces powerlevel10k — git status, branch, timing, etc.)
   - Keep zsh, just swap the prompt
   - Match Azurra colors in Starship config
+- [ ] **GRUB theme** (replace random repo theme with clean Azurra-cohesive theme)
 
 ---
 
