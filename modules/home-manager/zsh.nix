@@ -9,6 +9,14 @@
         };
         history.size = 1000;
 
+        plugins = [
+            {
+                name = "zinit";
+                src = pkgs.zinit;
+                file = "share/zinit/zinit.zsh";
+            }
+        ];
+
         initContent = lib.mkOrder 1500 ''
             zinit for \
             light-mode \
