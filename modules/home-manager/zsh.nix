@@ -5,25 +5,11 @@
         enableCompletion = true;
 
         shellAliases = {
-            update-nixos = "sudo nixos-rebuild switch --flake ~/nixos";
+            update-nixos = "sudo nixos-rebuild switch --flake ~/repos/nixos-dotfiles";
         };
-        history.size = 1000; 
-
-        plugins = [
-            {
-                name = "powerlevel10k-config";
-                src = ./p10k-config;
-                file = "p10k.zsh";
-            } 
-            {
-                name = "zinit";
-                src = pkgs.zinit;
-                file = "share/zinit/zinit.zsh";
-            } 
-        ];
+        history.size = 1000;
 
         initContent = lib.mkOrder 1500 ''
-            zi light romkatv/powerlevel10k
             zinit for \
             light-mode \
             zsh-users/zsh-autosuggestions \
@@ -33,6 +19,11 @@
             zdharma-continuum/history-search-multi-word \
             '';
 
+    };
+
+   programs.starship = {
+        enable = true;
+        enableZshIntegration = true;
     };
 }
 
