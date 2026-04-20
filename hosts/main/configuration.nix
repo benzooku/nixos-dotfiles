@@ -39,7 +39,7 @@
     
 
     # Use latest kernel.
-    boot.kernelPackages = pkgs.linuxPackages_zen;
+    boot.kernelPackages = pkgs.linuxPackages;
 
     # services.scx.enable = true; 
     # services.scx.scheduler = "scx_rusty";
